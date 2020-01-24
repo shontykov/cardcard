@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Grid, Typography } from "@material-ui/core";
 import {
   makeStyles,
@@ -181,6 +182,21 @@ const CardOrder = (props: any) => {
     });
 
     if (phoneNumber && setPhoneNumber) {
+      axios.post(`https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`, {
+        TELEPHONE: phoneNumber,
+        NAME: fio,
+        SYSTEM_TITLE: "#картакарта",
+        SYSTEM_POST_EVENT: "handleSubmit",
+        SYSTEM_LINK: "https://www.bcc.kz/kartakarta",
+        SYSTEM_IBLOCK_ID: 143,
+        SYSTEM_NAME_ELEMENT: "NAME",
+        SYSTEM_STATUS: "2877182",
+        SYSTEM_LID: "S1",
+        BCC_KEY: "1v5df35v",
+
+      })
+        .then(r => r.data);
+
       api.card
         .order({ fio, phoneNumber })
         .then(m => {
