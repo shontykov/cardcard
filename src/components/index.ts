@@ -9,5 +9,6 @@ export { default as AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
 export { default as GoodAnyTimeWhere } from "./GoodAnyTimeWhere/GoodAnyTimeWhere";
 export { default as Partners } from "./Partners";
 export { default as Footer } from "./Footer";
+export { default as Banner } from "./Banner";
 export { default as FixedHeader } from "./FixedHeader";
 export { default as Loading } from "./Loading";

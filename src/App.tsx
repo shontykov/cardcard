@@ -11,6 +11,7 @@ import {
   GoodAnyTimeWhere,
   Partners,
   Footer,
+  Banner,
   FixedHeader
 } from "./components";
 import { useTranslation } from 'react-i18next';
@@ -72,6 +73,7 @@ function App() {
       <AdditionalInfo />
       <HelpYou />
       <Footer />
+      <Banner />
       <SnackBarBottom
         open={isSend}
         message={message}
