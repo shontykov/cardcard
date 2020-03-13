@@ -60,6 +60,7 @@ function App() {
       />
       <Header lang={lang} changeLang={handleLangChange} scrollToOrder={scrollToOrderRef} />
       <FixedHeader lang={lang} changeLang={handleLangChange} scrollToOrder={scrollToOrderRef} />
+      <Banner />
       <BestCard />
       <GoodAnyTimeWhere scrollToOrder={scrollToOrderRef} />
       <Partners />
@@ -73,7 +74,6 @@ function App() {
       <AdditionalInfo />
       <HelpYou />
       <Footer />
-      <Banner />
       <SnackBarBottom
         open={isSend}
         message={message}
