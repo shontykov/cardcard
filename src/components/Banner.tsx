@@ -186,7 +186,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             notScroll: {
                 overflowY: 'hidden',
-                overflowX: 'hidden'
+                overflowX: 'hidden',
+                height: '100%'
             },
             fixedBtn: {
                 position: 'absolute',
