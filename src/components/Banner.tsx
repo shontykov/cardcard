@@ -221,7 +221,10 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             fixedImgModal: {
                 zIndex: 103,
-                opacity: 1
+                opacity: 1,
+                '& img:last-child': {
+                    display: 'none'
+                }
             },
             modalTitle: {
                 '& h3': {
