@@ -316,7 +316,7 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
-                    <img src="bannerMain-3.svg" onClick={() => {
+                    <img src="bannerMain-11.png" onClick={() => {
                         setOpen3(true)
                     }} />
 
@@ -324,7 +324,7 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
-                    <img src="bannerMain-4.svg" onClick={() => {
+                    <img src="bannerMain-12.png" onClick={() => {
                         setOpen2(true)
                     }} />
 
@@ -332,7 +332,7 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
-                    <img src="bannerMain-5.svg" onClick={() => {
+                    <img src="bannerMain-13.png" onClick={() => {
                         setOpen(true)
                     }} />
 
