@@ -312,21 +312,7 @@ const Banner = () => {
                 </Typography>
             </Grid>
             <Grid container className={classes.bannerMain}>
-                <Grid className={classes.fixedRoot}>
 
-                    <img src="bannerMain-1.svg" onClick={() => {
-                        setOpen2(true)
-                    }} />
-
-                </Grid>
-
-                <Grid className={classes.fixedRoot}>
-
-                    <img src="bannerMain-2.svg" onClick={() => {
-                        setOpen(true)
-                    }} />
-
-                </Grid>
 
                 <Grid className={classes.fixedRoot}>
 
@@ -335,6 +321,23 @@ const Banner = () => {
                     }} />
 
                 </Grid>
+
+                <Grid className={classes.fixedRoot}>
+
+                    <img src="bannerMain-4.svg" onClick={() => {
+                        setOpen2(true)
+                    }} />
+
+                </Grid>
+
+                <Grid className={classes.fixedRoot}>
+
+                    <img src="bannerMain-5.svg" onClick={() => {
+                        setOpen(true)
+                    }} />
+
+                </Grid>
+
 
                 <Grid className={`${classes.fixedModal} ${open ? classes.open : ''}`}>
 
