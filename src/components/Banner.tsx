@@ -316,6 +316,14 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
+                    <img src="bannerMain-22.svg" onClick={() => {
+                        setOpen(true)
+                    }} />
+
+                </Grid>
+
+                <Grid className={classes.fixedRoot}>
+
                     <img src="bannerMain-21.svg" onClick={() => {
                         setOpen3(true)
                     }} />
@@ -330,14 +338,6 @@ const Banner = () => {
 
                 </Grid>
 
-                <Grid className={classes.fixedRoot}>
-
-                    <img src="bannerMain-13.png" onClick={() => {
-                        setOpen(true)
-                    }} />
-
-                </Grid>
-
 
                 <Grid className={`${classes.fixedModal} ${open ? classes.open : ''}`}>
 
@@ -345,16 +345,23 @@ const Banner = () => {
                     <Grid className={classes.modalClose}>
                         <IconButton className={classes.fixedBtnModal} onClick={() => setOpen(false)}><CloseIcon /></IconButton>
                         <Grid className={`${classes.modalMain} ${classes.notScroll}`}>
-                            <div className={classes.fixedImgModal}>
-                                <img src="bgModalFixed.svg" />
-                                <img src="bannerMainMob-2.svg" />
-                            </div>
+
                             <Grid className={classes.modalTitle}>
-                                <Typography className={classes.chooseTitle}>
-                                    <span>{t("bannersSecond.desc")}</span>
-                                    <span>{t("bannersSecond.desc-2")}</span>
-                                    <span>{t("bannersSecond.desc-3")}</span>
-                                </Typography>
+                                <h3 style={{ marginBottom: 10 }}>{t("bannersSecond.text_0")}</h3>
+                                <p style={{ textDecoration: 'underline' }}>{t("bannersSecond.text_01")}</p>
+                                <p>{t("bannersSecond.text_02")}</p>
+                                <p>{t("bannersSecond.text_03")}</p>
+                                <p>{t("bannersSecond.text_04")}</p>
+                                <p>{t("bannersSecond.text_05")}</p>
+                                <p>{t("bannersSecond.text_06")}</p>
+                                <p style={{ textDecoration: 'underline' }}>{t("bannersSecond.text_07")}</p>
+                                <p>{t("bannersSecond.text_08")}</p>
+                                <p>{t("bannersSecond.text_09")}</p>
+                                <p>{t("bannersSecond.text_10")}</p>
+                                <p>{t("bannersSecond.text_11")}</p>
+                                <p>{t("bannersSecond.text_12")}</p>
+                                <p>{t("bannersSecond.text_13")}</p>
+                                <p>{t("bannersSecond.text_14")}</p>
                             </Grid>
 
                         </Grid>
