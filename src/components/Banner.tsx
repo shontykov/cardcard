@@ -361,7 +361,6 @@ const Banner = () => {
                                 <p>{t("bannersSecond.text_11")}</p>
                                 <p>{t("bannersSecond.text_12")}</p>
                                 <p>{t("bannersSecond.text_13")}</p>
-                                <p>{t("bannersSecond.text_14")}</p>
                             </Grid>
 
                         </Grid>
