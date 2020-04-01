@@ -316,7 +316,7 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
-                    <img src="bannerMain-11.png" onClick={() => {
+                    <img src="bannerMain-21.svg" onClick={() => {
                         setOpen3(true)
                     }} />
 
@@ -435,16 +435,21 @@ const Banner = () => {
                         <IconButton className={classes.fixedBtnModal} onClick={() => setOpen3(false)}><CloseIcon /></IconButton>
                         <Grid className={classes.modalMain}>
                             <Grid className={classes.modalTitle}>
-                                <h3>{t("banners.text_0")}</h3>
+                                <h3 style={{ marginBottom: 10 }}>{t("banners.text_0")}</h3>
+                                <h3>{t("banners.text_01")}</h3>
                                 <p>{t("banners.text_1")}</p>
-                                <p>{t("banners.text_2")}</p>
-                                <p>{t("banners.text_3")}</p>
-                                <p>{t("banners.text_4")}</p>
-                                <p>{t("banners.text_5")}</p>
-                                <p>{t("banners.text_6")}</p>
+                                <p><b>{t("banners.text_20")}</b>{t("banners.text_2")}</p>
+                                <p><b>{t("banners.text_30")}</b>{t("banners.text_3")}</p>
+                                <p><b>{t("banners.text_4")}</b>{t("banners.text_5")}</p>
+                                <p style={{ textDecoration: 'underline' }}>{t("banners.text_6")}</p>
                                 <p>{t("banners.text_7")}</p>
                                 <p>{t("banners.text_8")}</p>
-                                <p>{t("banners.text_9")}</p>
+                                <p style={{ textDecoration: 'underline' }}>{t("banners.text_9")}</p>
+                                <p>{t("banners.text_91")}</p>
+                                <p>{t("banners.text_92")}</p>
+                                <p>{t("banners.text_93")}</p>
+                                <p>{t("banners.text_94")}</p>
+                                <p>{t("banners.text_95")}</p>
                             </Grid>
 
                         </Grid>
