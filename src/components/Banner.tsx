@@ -316,6 +316,14 @@ const Banner = () => {
 
                 <Grid className={classes.fixedRoot}>
 
+                    <img src="bannerMain-23.svg" onClick={() => {
+                        setOpen2(true)
+                    }} />
+
+                </Grid>
+
+                <Grid className={classes.fixedRoot}>
+
                     <img src="bannerMain-22.svg" onClick={() => {
                         setOpen(true)
                     }} />
@@ -330,13 +338,6 @@ const Banner = () => {
 
                 </Grid>
 
-                <Grid className={classes.fixedRoot}>
-
-                    <img src="bannerMain-12.png" onClick={() => {
-                        setOpen2(true)
-                    }} />
-
-                </Grid>
 
 
                 <Grid className={`${classes.fixedModal} ${open ? classes.open : ''}`}>
@@ -379,51 +380,48 @@ const Banner = () => {
                         <Grid className={classes.modalMain}>
                             <Grid className={classes.modalTitle}>
                                 <h3>{t("bannersFirst.mainTitle")}</h3>
-                                <h4>{t("bannersFirst.text-main")}</h4>
-                                <p>{t("bannersFirst.text-desc")}</p>
-                                <h4>{t("bannersFirst.text-main-1")}</h4>
-                                <p>{t("bannersFirst.text-desc-1")}</p>
+                                <h4>{t("bannersFirst.text-main_1")}</h4>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_2")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_3")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_4")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_5")}</p>
 
-                                <h4>{t("bannersFirst.text-main-2")}</h4>
-                                <p>{t("bannersFirst.text-desc-2")}</p>
+                                <p style={{ textDecoration: 'underline', margin: '20px 0 0 0' }}>{t("bannersFirst.text-main_6")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_7")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_8")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_9")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_10")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_11")}</p>
 
-                                <h4>{t("bannersFirst.text-main-3")}</h4>
-                                <p>{t("bannersFirst.text-desc-3")}</p>
+                                <p style={{ textDecoration: 'underline', marginTop: '20px' }}>{t("bannersFirst.text-main_12")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_13")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_14")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_15")}</p>
 
-                                <h4>{t("bannersFirst.text-main-4")}</h4>
-                                <p>{t("bannersFirst.text-desc-4")}</p>
+                                <p>{t("bannersFirst.text-main_16")}</p>
 
-                                <h4>{t("bannersFirst.text-main-5")}</h4>
-                                <p>{t("bannersFirst.text-desc-5")}</p>
-                                <p>{t("bannersFirst.text-desc-6")}</p>
+                                <h4>{t("bannersFirst.text-main_17")}</h4>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_18")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_19")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("bannersFirst.text-main_20")}</p>
 
-                                <h4>{t("bannersFirst.text-main-123")}</h4>
-                                <p>{t("bannersFirst.text-desc-123")}</p>
-                                <h4>{t("bannersFirst.text-main-6")}</h4>
-                                <p>{t("bannersFirst.text-desc-7")}</p>
-                                <p>{t("bannersFirst.text-desc-8")}</p>
-                                <p>{t("bannersFirst.text-desc-81")}</p>
+                                <p style={{ marginTop: '20px' }}>{t("bannersFirst.text-main_21")}</p>
 
-                                <h4>{t("bannersFirst.text-main-7")}</h4>
-                                <p>{t("bannersFirst.text-desc-9")}</p>
-                                <p>{t("bannersFirst.text-desc-10")}</p>
+                                <h4>{t("bannersFirst.text-main_22")}</h4>
 
-                                <h4>{t("bannersFirst.text-main-8")}</h4>
-                                <p>{t("bannersFirst.text-desc-11")}</p>
-                                <p>{t("bannersFirst.text-desc-12")}</p>
+                                <p>{t("bannersFirst.text-main_23")}</p>
+                                <p>{t("bannersFirst.text-main_24")}</p>
 
-                                <h4>{t("bannersFirst.text-main-9")}</h4>
-                                <p>{t("bannersFirst.text-desc-13")}</p>
-                                <p>{t("bannersFirst.text-desc-14")}</p>
-                                <p>{t("bannersFirst.text-desc-15")} <a target="_blank" href="https://www.bcc.kz/">www.bcc.kz</a></p>
+                                <p>{t("bannersFirst.text-main_25")}</p>
+                                <p>{t("bannersFirst.text-main_26")} <a href="https://www.samsung.com/kz_ru/apps/mobile/samsungpay/" target="_blank">https://www.samsung.com/kz_ru/apps/mobile/samsungpay/</a> {t("bannersFirst.text-main_26_1")}</p>
 
-                                <h4>{t("bannersFirst.text-main-10")}</h4>
-                                <p>{t("bannersFirst.text-desc-16")}</p>
-                                <p>{t("bannersFirst.text-desc-17")}</p>
 
-                                <h4>{t("bannersFirst.text-main-11")}</h4>
-                                <p>{t("bannersFirst.text-desc-18")}</p>
-                                <p>{t("bannersFirst.text-desc-19")}</p>
+                                <p><b>{t("bannersFirst.text-main_27")}</b> {t("bannersFirst.text-main_28")}</p>
+
+                                <p>{t("bannersFirst.text-main_29")}</p>
+                                <p>{t("bannersFirst.text-main_30")}</p>
+                                <p>{t("bannersFirst.text-main_31")}</p>
+
                             </Grid>
 
                         </Grid>
