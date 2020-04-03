@@ -572,10 +572,10 @@ const Banner = () => {
                                 <p style={{ marginBottom: '5px' }}>{t("banners_1.text_15")}</p>
                                 <p style={{ marginBottom: '5px' }}>{t("banners_1.text_16")}</p>
                                 <Grid className={classes.imgPhoneBanner}>
-                                    <img src="imgPhone-11.png" />
-                                    <img src="imgPhone-12.png" />
-                                    <img src="imgPhone-13.png" />
-                                    <img src="imgPhone-14.png" />
+                                    <img src="imgPhone-21.svg" />
+                                    <img src="imgPhone-22.svg" />
+                                    <img src="imgPhone-23.svg" />
+                                    <img src="imgPhone-23.svg" />
                                 </Grid>
                                 <p>{t("banners_1.text_17")}</p>
                                 <p>{t("banners_1.text_18")}</p>
