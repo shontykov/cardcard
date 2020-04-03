@@ -94,7 +94,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
             imgPhoneBanner: {
                 '& img': {
-                    width: '49%'
+                    width: '47%',
+                    marginRight: 10,
+                    borderRadius: 10
+                }
+            },
+            imgPhoneBanner2: {
+                '& img': {
+                    width: '50%',
+                    borderRadius: 10
                 }
             },
             modalTables: {
@@ -279,7 +287,15 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             imgPhoneBanner: {
                 '& img': {
-                    width: '24%'
+                    width: '23%',
+                    marginRight: 10,
+                    borderRadius: 10
+                }
+            },
+            imgPhoneBanner2: {
+                '& img': {
+                    width: '30%',
+                    borderRadius: 10
                 }
             },
             modalTables: {
@@ -556,13 +572,16 @@ const Banner = () => {
                                 <p style={{ marginBottom: '5px' }}>{t("banners_1.text_15")}</p>
                                 <p style={{ marginBottom: '5px' }}>{t("banners_1.text_16")}</p>
                                 <Grid className={classes.imgPhoneBanner}>
-                                    <img src="imgPhone-1.png" />
-                                    <img src="imgPhone-2.png" />
-                                    <img src="imgPhone-3.png" />
-                                    <img src="imgPhone-4.png" />
+                                    <img src="imgPhone-11.png" />
+                                    <img src="imgPhone-12.png" />
+                                    <img src="imgPhone-13.png" />
+                                    <img src="imgPhone-14.png" />
                                 </Grid>
                                 <p>{t("banners_1.text_17")}</p>
                                 <p>{t("banners_1.text_18")}</p>
+                                <Grid className={classes.imgPhoneBanner2} style={{ marginBottom: '10px' }}>
+                                    <img src="imgPhone-15.png" />
+                                </Grid>
                                 <h4>{t("banners_1.text_19")}</h4>
                                 <table className={classes.modalTables}>
                                     <tr>
