@@ -91,6 +91,36 @@ const useStyles = makeStyles((theme: Theme) =>
                     display: 'none'
                 }
             },
+
+            imgPhoneBanner: {
+                '& img': {
+                    width: '49%'
+                }
+            },
+            modalTables: {
+                border: '1px solid #dee2e6',
+                marginTop: 10,
+                '& td': {
+                    padding: '16px'
+                },
+                '& tr:last-child': {
+                    borderBottom: '0px solid #dee2e6',
+                },
+                '& tr': {
+                    borderBottom: '1px solid #dee2e6',
+                    display: 'flex',
+                    '& td:nth-child(1)': {
+                        width: '70%'
+                    },
+                    '& td:nth-child(2)': {
+                        width: '30%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderLeft: '1px solid #dee2e6'
+                    }
+                }
+            },
             modalTitle: {
                 padding: '20px 16px',
                 '& h3': {
@@ -156,7 +186,7 @@ const useStyles = makeStyles((theme: Theme) =>
         [theme.breakpoints.between("sm", "xl")]: {
             ...rootSmXl,
             fixedRoot: {
-                width: '32%',
+                width: '24%',
                 cursor: 'pointer',
                 '& img': {
                     width: '100%',
@@ -247,6 +277,35 @@ const useStyles = makeStyles((theme: Theme) =>
                     margin: '0'
                 }
             },
+            imgPhoneBanner: {
+                '& img': {
+                    width: '24%'
+                }
+            },
+            modalTables: {
+                border: '1px solid #dee2e6',
+                marginTop: 10,
+                '& td': {
+                    padding: '.75rem'
+                },
+                '& tr:last-child': {
+                    borderBottom: '0px solid #dee2e6',
+                },
+                '& tr': {
+                    borderBottom: '1px solid #dee2e6',
+                    display: 'flex',
+                    '& td:nth-child(1)': {
+                        width: '70%'
+                    },
+                    '& td:nth-child(2)': {
+                        width: '30%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderLeft: '1px solid #dee2e6'
+                    }
+                }
+            },
             chooseTitle: {
                 marginTop: 24,
                 '& span': {
@@ -302,6 +361,7 @@ const Banner = () => {
     const [open, setOpen] = React.useState(false)
     const [open2, setOpen2] = React.useState(false)
     const [open3, setOpen3] = React.useState(false)
+    const [open4, setOpen4] = React.useState(false)
     const [closed, setClosed] = React.useState(false)
 
     return (
@@ -313,6 +373,13 @@ const Banner = () => {
             </Grid>
             <Grid container className={classes.bannerMain}>
 
+                <Grid className={classes.fixedRoot}>
+
+                    <img src="bannerMain-24.svg" onClick={() => {
+                        setOpen4(true)
+                    }} />
+
+                </Grid>
 
                 <Grid className={classes.fixedRoot}>
 
@@ -464,7 +531,65 @@ const Banner = () => {
                     <div className={classes.drpBack} onClick={() => setOpen3(false)}></div>
                 </Grid>
 
+                <Grid className={`${classes.fixedModal} ${open4 ? classes.open : ''}`}>
 
+
+                    <Grid className={classes.modalClose}>
+                        <IconButton className={classes.fixedBtnModal} onClick={() => setOpen4(false)}><CloseIcon /></IconButton>
+                        <Grid className={classes.modalMain}>
+                            <Grid className={classes.modalTitle}>
+                                <h3 style={{ marginBottom: 10 }}>{t("banners_1.text_1")}</h3>
+                                <h4>{t("banners_1.text_2")}</h4>
+                                <p>{t("banners_1.text_3")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_4")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_5")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_6")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_7")}</p>
+
+                                <h3>{t("banners_1.text_8")}</h3>
+
+                                <h4>{t("banners_1.text_9")}</h4>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_10")} <a href="https://mssg.me/concierge__service" target="_blank">https://mssg.me/concierge__service</a> {t("banners_1.text_11")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_12")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_13")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_14")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_15")}</p>
+                                <p style={{ marginBottom: '5px' }}>{t("banners_1.text_16")}</p>
+                                <Grid className={classes.imgPhoneBanner}>
+                                    <img src="imgPhone-1.png" />
+                                    <img src="imgPhone-2.png" />
+                                    <img src="imgPhone-3.png" />
+                                    <img src="imgPhone-4.png" />
+                                </Grid>
+                                <p>{t("banners_1.text_17")}</p>
+                                <p>{t("banners_1.text_18")}</p>
+                                <h4>{t("banners_1.text_19")}</h4>
+                                <table className={classes.modalTables}>
+                                    <tr>
+                                        <td><b>{t("banners_1.text_20")}</b> {t("banners_1.text_21")}</td>
+                                        <td>{t("banners_1.text_22")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{t("banners_1.text_23")}</b> {t("banners_1.text_24")}</td>
+                                        <td>{t("banners_1.text_25")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{t("banners_1.text_26")}</b> {t("banners_1.text_27")}</td>
+                                        <td>{t("banners_1.text_28")}</td>
+                                    </tr>
+                                </table>
+                                <p>{t("banners_1.text_29")}</p>
+                                <p><b><a href="tel:505">505</a> {t("banners_1.text_30")} <a href="tel:87272443030">8 (727) 244 30 30</a></b></p>
+
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+
+                    <div className={classes.drpBack} onClick={() => setOpen4(false)}></div>
+                </Grid>
 
 
             </Grid>
