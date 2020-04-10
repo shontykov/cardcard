@@ -537,7 +537,7 @@ const Banner = () => {
                                 <h3>{t("banners.text_01")}</h3>
                                 <p>{t("banners.text_1")}</p>
                                 <p><b>{t("banners.text_20")}</b>{t("banners.text_2")}</p>
-                                <p><b>{t("banners.text_30")}</b>{t("banners.text_3")}</p>
+                                <p><b>{t("banners.text_30")}</b>{t("banners.text_3")} <a href="https://www.bcc.kz/adult_content.txt">{t("banners.text_311")}</a></p>
                                 <p><b>{t("banners.text_4")}</b>{t("banners.text_5")}</p>
                                 <p style={{ textDecoration: 'underline' }}>{t("banners.text_6")}</p>
                                 <p>{t("banners.text_7")}</p>
@@ -632,7 +632,7 @@ const Banner = () => {
                                 <p>{t("banners_2.text_0")}</p>
                                 <p>{t("banners_2.text_01")}</p>
                                 <p><b>{t("banners_2.text_20")}</b>{t("banners_2.text_2")}</p>
-                                <p><b>{t("banners_2.text_30")}</b>{t("banners_2.text_3")}</p>
+                                <p><b>{t("banners_2.text_30")}</b>{t("banners_2.text_3")} <a href="https://www.bcc.kz/adult_content.txt">{t("banners_2.text_311")}</a></p>
                                 <p><b>{t("banners_2.text_4")}</b>{t("banners_2.text_5")}</p>
                                 <p><span style={{ textDecoration: 'underline' }}>{t("banners_2.text_6")}</span> {t("banners_2.text_7")}</p>
                                 <p style={{ textDecoration: 'underline' }}>{t("banners_2.text_9")}</p>
