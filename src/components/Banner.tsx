@@ -194,10 +194,11 @@ const useStyles = makeStyles((theme: Theme) =>
         [theme.breakpoints.between("sm", "xl")]: {
             ...rootSmXl,
             fixedRoot: {
-                width: '24%',
+                width: '32%',
                 cursor: 'pointer',
+                marginRight: 16,
                 '& img': {
-                    width: '100%',
+                    width: '340px',
                 }
             },
             mainTitle: {
@@ -208,6 +209,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginBottom: 24
             },
             bannerMain: {
+                overflowX: 'auto',
                 justifyContent: 'space-between',
                 flexWrap: 'nowrap'
             },
@@ -378,6 +380,8 @@ const Banner = () => {
     const [open2, setOpen2] = React.useState(false)
     const [open3, setOpen3] = React.useState(false)
     const [open4, setOpen4] = React.useState(false)
+    const [open5, setOpen5] = React.useState(false)
+    const [open6, setOpen6] = React.useState(false)
     const [closed, setClosed] = React.useState(false)
 
     return (
@@ -388,6 +392,22 @@ const Banner = () => {
                 </Typography>
             </Grid>
             <Grid container className={classes.bannerMain}>
+
+                <Grid className={classes.fixedRoot}>
+
+                    <img src={t("banners_3.img")} onClick={() => {
+                        setOpen6(true)
+                    }} />
+
+                </Grid>
+
+                <Grid className={classes.fixedRoot}>
+
+                    <img src="bannerMain-25.svg" onClick={() => {
+                        setOpen5(true)
+                    }} />
+
+                </Grid>
 
                 <Grid className={classes.fixedRoot}>
 
@@ -526,7 +546,7 @@ const Banner = () => {
                                 <h3>{t("banners.text_01")}</h3>
                                 <p>{t("banners.text_1")}</p>
                                 <p><b>{t("banners.text_20")}</b>{t("banners.text_2")}</p>
-                                <p><b>{t("banners.text_30")}</b>{t("banners.text_3")}</p>
+                                <p><b>{t("banners.text_30")}</b>{t("banners.text_3")} <a href="https://www.bcc.kz/adult_content.txt">{t("banners.text_311")}</a></p>
                                 <p><b>{t("banners.text_4")}</b>{t("banners.text_5")}</p>
                                 <p style={{ textDecoration: 'underline' }}>{t("banners.text_6")}</p>
                                 <p>{t("banners.text_7")}</p>
@@ -610,6 +630,68 @@ const Banner = () => {
                     <div className={classes.drpBack} onClick={() => setOpen4(false)}></div>
                 </Grid>
 
+                <Grid className={`${classes.fixedModal} ${open5 ? classes.open : ''}`}>
+
+
+                    <Grid className={classes.modalClose}>
+                        <IconButton className={classes.fixedBtnModal} onClick={() => setOpen5(false)}><CloseIcon /></IconButton>
+                        <Grid className={classes.modalMain}>
+                            <Grid className={classes.modalTitle}>
+                                <h3 style={{ marginBottom: 10 }}>{t("banners_2.text_100")}</h3>
+                                <p>{t("banners_2.text_0")}</p>
+                                <p>{t("banners_2.text_01")}</p>
+                                <p><b>{t("banners_2.text_20")}</b>{t("banners_2.text_2")}</p>
+                                <p><b>{t("banners_2.text_30")}</b>{t("banners_2.text_3")} <a href="https://www.bcc.kz/adult_content.txt">{t("banners_2.text_311")}</a></p>
+                                <p><b>{t("banners_2.text_4")}</b>{t("banners_2.text_5")}</p>
+                                <p><span style={{ textDecoration: 'underline' }}>{t("banners_2.text_6")}</span> {t("banners_2.text_7")}</p>
+                                <p style={{ textDecoration: 'underline' }}>{t("banners_2.text_9")}</p>
+                                <p>{t("banners_2.text_91")}</p>
+                                <p>{t("banners_2.text_92")}</p>
+                                <p>{t("banners_2.text_93")}</p>
+                                <p>{t("banners_2.text_94")}</p>
+                                <p>{t("banners_2.text_95")}</p>
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+
+                    <div className={classes.drpBack} onClick={() => setOpen5(false)}></div>
+                </Grid>
+
+                <Grid className={`${classes.fixedModal} ${open6 ? classes.open : ''}`}>
+
+
+                    <Grid className={classes.modalClose}>
+                        <IconButton className={classes.fixedBtnModal} onClick={() => setOpen6(false)}><CloseIcon /></IconButton>
+                        <Grid className={classes.modalMain}>
+                            <Grid className={classes.modalTitle}>
+                                <h3 style={{ marginBottom: 10 }}>{t("banners_3.text_100")}</h3>
+                                <p style={{ textDecoration: 'underline' }}>{t("banners_3.text_0")}</p>
+                                <p>{t("banners_3.text_01")}</p>
+                                <p style={{ textDecoration: 'underline' }}>{t("banners_3.text_20")}</p>
+                                <p>{t("banners_3.text_2")}</p>
+                                <p>{t("banners_3.text_30")}</p>
+                                <p>{t("banners_3.text_3")}</p>
+
+                                <h4>{t("banners_3.text_311")}</h4>
+
+                                <p>{t("banners_3.text_4")}</p>
+                                <p>{t("banners_3.text_5")}</p>
+                                <p>{t("banners_3.text_6")}</p>
+
+                                <p>{t("banners_3.text_7")} <a href="https://m.bcc.kz/markets">{t("banners_3.text_9")}</a></p>
+                                <p>{t("banners_3.text_91")} <a href="https://wolt.onelink.me/Uy67/895c68dd">{t("banners_3.text_92")}</a></p>
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+
+                    <div className={classes.drpBack} onClick={() => setOpen5(false)}></div>
+                </Grid>
 
             </Grid>
         </Grid >
