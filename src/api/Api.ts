@@ -1,10 +1,14 @@
 import axios from "axios";
 import moment from "moment";
+import { AuthOtpController } from "./AuthOtpController";
+import { CamundaController } from "./CamundaController";
 
 const baseURL = process.env.REACT_APP_SERVER_URL || "";
 
 export class Api {
   card = new CardController();
+  authOtp = new AuthOtpController();
+  camunda = new CamundaController();
 }
 
 export interface OrderRequest {
