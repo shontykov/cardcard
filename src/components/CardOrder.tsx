@@ -464,7 +464,7 @@ const CardOrder = (props: any) => {
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="error">
-            Возникла непредвиденная ошибка!
+            {t("block_6.res_error")}
           </Alert>
         </Snackbar>
         <div className={classes.form}>
@@ -651,7 +651,7 @@ const CardOrder = (props: any) => {
             ) : resStatus === 1 ? (
               <div className={`${classes.successForm} ${classes.warningForm}`}>
                 <img src="warning.svg" alt="" />
-                <div>{resText && resText}</div>
+                <div>{t("block_6.warning_main")}</div>
               </div>
             ) : resStatus === 2 ? (
               <div
@@ -659,7 +659,7 @@ const CardOrder = (props: any) => {
               >
                 <div className={classes.linkBlock}>
                   <div className={classes.starText}>
-                    {resText && resText}
+                    {t("block_6.start_main")}
                     <div className={classes.starImages}>
                       <img className={classes.starQr} src="qr.svg" alt="qr" />
                       <img
