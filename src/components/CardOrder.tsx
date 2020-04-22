@@ -361,7 +361,7 @@ const CardOrder = (props: any) => {
 
   const formatPhoneNumber = () => {
     let res = phoneNumber;
-    phoneNumber.slice(0, 1) === "8" ? (res = "7" + phoneNumber.slice(1)) : "";
+    if (phoneNumber.slice(0, 1) === "8") res = "7" + phoneNumber.slice(1);
     return res.replace(/\(|\)| /g, "");
   };
 
