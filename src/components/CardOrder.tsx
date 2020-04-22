@@ -271,7 +271,7 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
       ref={(ref: any) => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      mask="1(111) 111 11 11"
+      mask="7(111) 111 11 11"
       placeholder={"7(707) 707 77 77"}
     />
   );
