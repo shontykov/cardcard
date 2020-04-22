@@ -271,7 +271,7 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
       ref={(ref: any) => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      mask="7(111) 111 11 11"
+      mask="1(111) 111 11 11"
       placeholder={"7(707) 707 77 77"}
     />
   );
@@ -339,7 +339,7 @@ const CardOrder = (props: any) => {
           firstName: firstName,
           middleName: middleName,
           lastName: lastName,
-          msisdn: phoneNumber,
+          msisdn: formatPhoneNumber(),
           productCode: "0.300.017.1",
         },
       })
@@ -359,11 +359,17 @@ const CardOrder = (props: any) => {
       });
   };
 
+  const formatPhoneNumber = () => {
+    let res = phoneNumber;
+    phoneNumber.slice(0, 1) === "8" ? (res = "7" + phoneNumber.slice(1)) : "";
+    return res.replace(/\(|\)| /g, "");
+  };
+
   const getOtp = () => {
     setLoading(true);
     setTimer(90);
     api.authOtp
-      .sendOtp({ iin: iin, phone: phoneNumber })
+      .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
         localStorage.removeItem("userContext");
         setStep(1);
@@ -379,7 +385,7 @@ const CardOrder = (props: any) => {
   const onReSend = () => {
     setLoading(true);
     api.authOtp
-      .sendOtp({ iin: iin, phone: phoneNumber })
+      .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
         setTimer(90);
         setCode("");
@@ -397,7 +403,7 @@ const CardOrder = (props: any) => {
     api.authOtp
       .confirmOtp({
         iin: iin,
-        phone: phoneNumber,
+        phone: formatPhoneNumber(),
         otp: code,
       })
       .then((userContext) => {
