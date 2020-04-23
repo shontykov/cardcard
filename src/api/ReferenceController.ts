@@ -10,8 +10,8 @@ export interface CodeName {
 
 export class ReferenceController {
   async getIdentityTypes(): Promise<CodeName[]> {
-    return server.get(`/reference/api/generic/Id`, {
-      baseURL: webConfigEnv.GREEN_API
+    return server.get(`/api/generic/Id`, {
+      baseURL: webConfigEnv.REFERENCE_API,
     });
   }
 }

@@ -23,22 +23,22 @@ export class AuthOtpController {
     return await server.post(
       `/hotspot/sendOtp`,
       {
-        ...request
+        ...request,
       },
       {
-        baseURL: webConfigEnv.OTP_URL
+        baseURL: webConfigEnv.OTP_URL,
       }
     );
   }
 
   async confirmOtp(request?: OtpRequest): Promise<UserContext> {
     return await server.post(
-      `/camunda/auth/login/public`,
+      `/auth/login/public`,
       {
-        ...request
+        ...request,
       },
       {
-        baseURL: webConfigEnv.GREEN_API
+        baseURL: webConfigEnv.GREEN_API,
       }
     );
   }
