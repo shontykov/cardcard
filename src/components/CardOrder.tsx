@@ -287,7 +287,8 @@ const CardOrder = (props: any) => {
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState(0);
-  const [resStatus, setResStatus] = React.useState<string | null>(null);
+  const [resStatus, setResStatus] = React.useState<number | null>(null);
+  const [resText, setResText] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
   const classes = useStyles({});
@@ -345,6 +346,7 @@ const CardOrder = (props: any) => {
       .then((res: any) => {
         if (res && res.variables) {
           setResStatus(res.variables.status);
+          setResText(res.variables.message);
         }
         setStep(2);
         ym("reachGoal", "send_mess");
@@ -646,18 +648,18 @@ const CardOrder = (props: any) => {
                   )}
                 </Grid>
               </>
-            ) : resStatus === "0" ? (
+            ) : resStatus === 0 ? (
               <div className={classes.successForm}>
                 <img src="success.svg" alt="" />
                 <div>{t("block_6.success_main")}</div>
-                <span>{t("block_6.success_sms_main")}</span>
+                <span>{resText && resText}</span>
               </div>
-            ) : resStatus === "1" ? (
+            ) : resStatus === 1 ? (
               <div className={`${classes.successForm} ${classes.warningForm}`}>
                 <img src="warning.svg" alt="" />
                 <div>{t("block_6.warning_main")}</div>
               </div>
-            ) : resStatus === "2" ? (
+            ) : resStatus === 2 ? (
               <div
                 className={`${classes.successForm} ${classes.starbankingForm}`}
               >
