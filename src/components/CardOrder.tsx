@@ -287,7 +287,7 @@ const CardOrder = (props: any) => {
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState(0);
-  const [resStatus, setResStatus] = React.useState(null);
+  const [resStatus, setResStatus] = React.useState<number | null>(null);
   const [resText, setResText] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
