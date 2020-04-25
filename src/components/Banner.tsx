@@ -683,6 +683,7 @@ const Banner = () => {
 
                                 <p>{t("banners_3.text_7")} <a href="https://m.bcc.kz/markets">{t("banners_3.text_9")}</a></p>
                                 <p>{t("banners_3.text_91")} <a href="https://wolt.onelink.me/Uy67/895c68dd">{t("banners_3.text_92")}</a></p>
+                                <p>{t("banners_3.text_1000")}</p>
                             </Grid>
 
                         </Grid>
