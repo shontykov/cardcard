@@ -251,6 +251,12 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "100%",
       },
     },
+    hintText: {
+      fontSize: 14,
+      textAlign: "center",
+      color: "#141414",
+      opacity: 0.7,
+    },
   })
 );
 
@@ -271,7 +277,7 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
       ref={(ref: any) => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      mask="1(111) 111 11 11"
+      mask="7(111) 111 11 11"
       placeholder={"7(707) 707 77 77"}
     />
   );
@@ -288,7 +294,6 @@ const CardOrder = (props: any) => {
   const [agree, setAgree] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState(0);
   const [resStatus, setResStatus] = React.useState<number | null>(null);
-  const [resText, setResText] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
   const classes = useStyles({});
@@ -346,7 +351,6 @@ const CardOrder = (props: any) => {
       .then((res: any) => {
         if (res && res.variables) {
           setResStatus(res.variables.status);
-          setResText(res.variables.message);
         }
         setStep(2);
         ym("reachGoal", "send_mess");
@@ -460,6 +464,13 @@ const CardOrder = (props: any) => {
           {t("block_6.title_main")} <br />
           {t("block_6.title_main_2")}
         </Typography>
+        <Typography className={classes.hintText}>
+          {step === 0
+            ? t("block_6.hint_text1")
+            : step === 1
+            ? t("block_6.hint_text2")
+            : ""}
+        </Typography>
         <Snackbar
           anchorOrigin={{
             vertical: "top",
@@ -486,7 +497,13 @@ const CardOrder = (props: any) => {
                   label={t("block_6.firstName_main")}
                   name="firstName"
                   value={firstName}
-                  onChange={(e: any) => setFirstName(e.target.value)}
+                  onChange={(e: any) => {
+                    setFirstName(
+                      e.target.value
+                        .replace(/[^a-zA-ZА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]/gi, "")
+                        .replace(/\s+/gi, ", ")
+                    );
+                  }}
                 />
                 <TextField
                   size={isXS ? "small" : "medium"}
@@ -497,7 +514,13 @@ const CardOrder = (props: any) => {
                   label={t("block_6.lastName_main")}
                   name="lastName"
                   value={lastName}
-                  onChange={(e: any) => setLastName(e.target.value)}
+                  onChange={(e: any) =>
+                    setLastName(
+                      e.target.value
+                        .replace(/[^a-zA-ZА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]/gi, "")
+                        .replace(/\s+/gi, ", ")
+                    )
+                  }
                 />
                 <TextField
                   size={isXS ? "small" : "medium"}
@@ -508,7 +531,13 @@ const CardOrder = (props: any) => {
                   label={t("block_6.middleName_main")}
                   name="middleName"
                   value={middleName}
-                  onChange={(e: any) => setMiddleName(e.target.value)}
+                  onChange={(e: any) =>
+                    setMiddleName(
+                      e.target.value
+                        .replace(/[^a-zA-ZА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]/gi, "")
+                        .replace(/\s+/gi, ", ")
+                    )
+                  }
                 />
                 <TextField
                   size={isXS ? "small" : "medium"}
@@ -519,7 +548,9 @@ const CardOrder = (props: any) => {
                   label={t("block_6.iin_main")}
                   name="iin"
                   value={iin}
-                  onChange={(e: any) => setIin(e.target.value)}
+                  onChange={(e: any) =>
+                    setIin(e.target.value.replace(/\D/g, "").substr(0, 12))
+                  }
                 />
                 <TextField
                   size={isXS ? "small" : "medium"}
@@ -615,7 +646,9 @@ const CardOrder = (props: any) => {
                       id="code"
                       name="code"
                       value={code}
-                      onChange={(e: any) => setCode(e.target.value)}
+                      onChange={(e: any) =>
+                        setCode(e.target.value.replace(/\D/g, "").substr(0, 6))
+                      }
                       label={t("block_6.code_main")}
                     />
                   </Grid>
@@ -633,7 +666,7 @@ const CardOrder = (props: any) => {
                   {timer !== 0 ? (
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                       <Typography className={classes.timer}>
-                        Отправить ещё через ({timer})
+                        {t("block_6.resend_sms_timer")} ({timer})
                       </Typography>
                     </Grid>
                   ) : (
@@ -642,7 +675,7 @@ const CardOrder = (props: any) => {
                         className={classes.linkReSendSms}
                         onClick={() => onReSend()}
                       >
-                        Отправить повторно
+                        {t("block_6.resend_sms")}
                       </Typography>
                     </Grid>
                   )}
@@ -652,7 +685,7 @@ const CardOrder = (props: any) => {
               <div className={classes.successForm}>
                 <img src="success.svg" alt="" />
                 <div>{t("block_6.success_main")}</div>
-                <span>{resText && resText}</span>
+                <span>{t("block_6.success_sms_main")}</span>
               </div>
             ) : resStatus === 1 ? (
               <div className={`${classes.successForm} ${classes.warningForm}`}>
@@ -687,6 +720,16 @@ const CardOrder = (props: any) => {
                     src="stars_mobile_banking.png"
                     alt="star_mobile_banking"
                   />
+                </div>
+              </div>
+            ) : resStatus === 3 ? (
+              <div className={`${classes.successForm} ${classes.warningForm}`}>
+                <img src="warning.svg" alt="" />
+                <div>
+                  {t("block_6.has_main")}
+                  <br />
+                  <br />
+                  {t("block_6.has_main2")}
                 </div>
               </div>
             ) : (
