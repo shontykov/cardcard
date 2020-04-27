@@ -277,7 +277,7 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
       ref={(ref: any) => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      mask="7(111) 111 11 11"
+      mask="7(711) 111 11 11"
       placeholder={"7(707) 707 77 77"}
     />
   );
@@ -315,19 +315,13 @@ const CardOrder = (props: any) => {
       return (
         firstName.length > 1 &&
         lastName.length > 1 &&
-        phoneNumber.replace("_", "").length === 16 &&
-        agree
-      );
-    } else if (step === 1) {
-      return (
-        firstName.length > 1 &&
-        lastName.length > 1 &&
+        middleName.length > 1 &&
         iin.length === 12 &&
         phoneNumber.replace("_", "").length === 16 &&
         agree
       );
-    } else if (step === 2) {
-      return code.length >= 6;
+    } else if (step === 1) {
+      return code.length === 6;
     } else {
       return true;
     }
@@ -493,23 +487,6 @@ const CardOrder = (props: any) => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
-                  id="firstName"
-                  label={t("block_6.firstName_main")}
-                  name="firstName"
-                  value={firstName}
-                  onChange={(e: any) => {
-                    setFirstName(
-                      e.target.value
-                        .replace(/[^a-zA-ZА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]/gi, "")
-                        .replace(/\s+/gi, ", ")
-                    );
-                  }}
-                />
-                <TextField
-                  size={isXS ? "small" : "medium"}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
                   id="lastName"
                   label={t("block_6.lastName_main")}
                   name="lastName"
@@ -521,6 +498,23 @@ const CardOrder = (props: any) => {
                         .replace(/\s+/gi, ", ")
                     )
                   }
+                />
+                <TextField
+                  size={isXS ? "small" : "medium"}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="firstName"
+                  label={t("block_6.firstName_main")}
+                  name="firstName"
+                  value={firstName}
+                  onChange={(e: any) => {
+                    setFirstName(
+                      e.target.value
+                        .replace(/[^a-zA-ZА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]/gi, "")
+                        .replace(/\s+/gi, ", ")
+                    );
+                  }}
                 />
                 <TextField
                   size={isXS ? "small" : "medium"}
