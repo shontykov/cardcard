@@ -274,10 +274,8 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
   return (
     <MaskedInput
       {...other}
-      ref={(ref: any) => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask="7(711) 111 11 11"
+      ref={(ref: any) => inputRef(ref ? ref.inputElement : null)}
+      mask="7(111) 111 11 11"
       placeholder={"7(707) 707 77 77"}
     />
   );
@@ -292,6 +290,7 @@ const CardOrder = (props: any) => {
   const [code, setCode] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
+  const [phoneError, setPhoneError] = React.useState<boolean>(false);
   const [timer, setTimer] = React.useState(0);
   const [resStatus, setResStatus] = React.useState<number | null>(null);
   const [isLoading, setLoading] = React.useState(false);
@@ -315,7 +314,6 @@ const CardOrder = (props: any) => {
       return (
         firstName.length > 1 &&
         lastName.length > 1 &&
-        middleName.length > 1 &&
         iin.length === 12 &&
         phoneNumber.replace("_", "").length === 16 &&
         agree
@@ -364,6 +362,10 @@ const CardOrder = (props: any) => {
   };
 
   const getOtp = () => {
+    if (phoneNumber.substr(2, 1) !== "7") {
+      setPhoneError(true);
+      return;
+    } else setPhoneError(false);
     setLoading(true);
     setTimer(90);
     api.authOtp
@@ -553,6 +555,8 @@ const CardOrder = (props: any) => {
                   fullWidth
                   id="phone"
                   name="phone"
+                  helperText={phoneError ? t("block_6.phone_error") : ""}
+                  error={phoneError ? true : false}
                   value={phoneNumber}
                   onChange={(e: any) => setPhoneNumber(e.target.value)}
                   label={t("block_6.phone_main")}
