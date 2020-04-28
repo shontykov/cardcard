@@ -22,6 +22,8 @@ import { Snackbar } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import "react-block-ui/style.css";
 
+const webConfigEnv = (window as any).env;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.down("md")]: {
@@ -329,7 +331,7 @@ const CardOrder = (props: any) => {
     api.camunda
       .start({
         env: {
-          production: false,
+          production: webConfigEnv.PRODUCTION === "1",
         },
         client: {
           iin: iin,
