@@ -10,6 +10,7 @@ export class Api {
 export interface OrderRequest {
   fio?: string;
   phoneNumber?: string;
+  city?: string;
 }
 
 function uuid() {
@@ -25,7 +26,7 @@ export class CardController {
     const config: any = {};
     config.headers = config.headers || {};
     config.headers = {
-      "x-ibm-client-id": "c274fb89-0d53-4304-95e9-130b267cd326"
+      "x-ibm-client-id": "c274fb89-0d53-4304-95e9-130b267cd326",
     };
     config.baseURL = baseURL;
 
@@ -51,15 +52,15 @@ export class CardController {
           productService: {
             productName: "#картакарта",
             productCode: "0.300.1400.10",
-            productDescription: "Кредитная карта - рассрочка #картакарта"
-          }
-        }
-      }
+            productDescription: "Кредитная карта - рассрочка #картакарта",
+          },
+        },
+      },
     };
 
     return axios
       .post(`/protected/callcenter/order`, data, config)
-      .then(r => r.data);
+      .then((r) => r.data);
   }
 }
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, MenuItem } from "@material-ui/core";
 import {
   makeStyles,
   createStyles,
   Theme,
-  useTheme
+  useTheme,
 } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
@@ -20,44 +20,46 @@ import ym from "react-yandex-metrika";
 import { getByDisplayValue } from "@testing-library/react";
 import { useTranslation } from "react-i18next";
 
+const CityList = require("../city_list.json");
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.down("sm")]: {
       root: {
         marginTop: "8px",
         padding: "36px 20px 36px 20px",
-        alignItems: "center"
+        alignItems: "center",
       },
       icon: {
         width: "18px",
-        height: "19px"
+        height: "19px",
       },
       paper: {
         padding: "22px 16px 22px 16px",
         backgroundColor: "white",
         border: "1px solid #E8E8E8",
         boxSizing: "border-box",
-        borderRadius: 8
+        borderRadius: 8,
       },
       box: {
         textAlign: "center",
         fontWeight: "bold",
         fontSize: "20px",
-        lineHeight: "20px"
+        lineHeight: "20px",
       },
       formControlCheckBox: {
-        marginTop: "20px"
+        marginTop: "20px",
       },
       checkBoxLabel: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: 12,
-        color: "black"
+        color: "black",
       },
       garant: {
         fontStyle: "normal",
         fontWeight: "normal",
-        fontSize: 12
+        fontSize: 12,
       },
       submit: {
         background: "#3F0259",
@@ -74,53 +76,53 @@ const useStyles = makeStyles((theme: Theme) =>
           borderColor: "#3F0259",
           opacity: 0.8,
           boxShadow: "none",
-          color: "#FFFFFF"
+          color: "#FFFFFF",
         },
         "&:disabled": {
           backgroundColor: "#3F0259",
           opacity: 0.4,
           boxShadow: "none",
-          color: "#FFFFFF"
-        }
-      }
+          color: "#FFFFFF",
+        },
+      },
     },
     [theme.breakpoints.between("sm", "xl")]: {
       root: {
         padding: "64px 252px 64px 252px",
         maxWidth: 1280,
-        margin: "auto"
+        margin: "auto",
       },
       paper: {
         padding: "45px 72px 45px 72px",
         background: "#FFFFFF",
         border: "2px solid #FAFAFA",
         boxSizing: "border-box",
-        borderRadius: "8px"
+        borderRadius: "8px",
       },
       icon: {
         width: "18px",
-        height: "19px"
+        height: "19px",
       },
       box: {
         textAlign: "center",
         fontWeight: "bold",
         fontSize: "40px",
         lineHeight: "40px",
-        marginBottom: "27px"
+        marginBottom: "27px",
       },
       formControlCheckBox: {
-        marginTop: "25px"
+        marginTop: "25px",
       },
       checkBoxLabel: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: 16,
-        color: "black"
+        color: "black",
       },
       garant: {
         fontStyle: "normal",
         fontWeight: "normal",
-        fontSize: 14
+        fontSize: 14,
       },
       submit: {
         background: "#3F0259",
@@ -138,16 +140,16 @@ const useStyles = makeStyles((theme: Theme) =>
           borderColor: "#3F0259",
           opacity: 0.8,
           boxShadow: "none",
-          color: "#FFFFFF"
+          color: "#FFFFFF",
         },
         "&:disabled": {
           backgroundColor: "#3F0259",
           opacity: 0.6,
           boxShadow: "none",
-          color: "#FFFFFF"
-        }
-      }
-    }
+          color: "#FFFFFF",
+        },
+      },
+    },
   })
 );
 
@@ -171,13 +173,16 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
 };
 
 function getUrlParameter(name: string) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
   var results = regex.exec(window.location.search);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
+  return results === null
+    ? ""
+    : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 const CardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
+  const [city, setCity] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
 
@@ -185,7 +190,7 @@ const CardOrder = (props: any) => {
     e.preventDefault();
     ReactGA.event({
       category: "BccCard_kartakarta_Apply_Success",
-      action: "kartakarta_Apply_Success"
+      action: "kartakarta_Apply_Success",
     });
 
     const time: any = new Date();
@@ -223,61 +228,65 @@ const CardOrder = (props: any) => {
       props.snackUp(t("block_9.snack_bar_week_end"));
     }
 
-    setTimeout(
-      () => {
-        if (phoneNumber && setPhoneNumber) {
-          const formData = new FormData();
+    setTimeout(() => {
+      if (phoneNumber && setPhoneNumber) {
+        const formData = new FormData();
 
-          formData.append('TELEPHONE', phoneNumber);
-          formData.append('NAME', fio);
-          formData.append('SYSTEM_TITLE', "#картакарта");
-          formData.append('SYSTEM_POST_EVENT', "NEW_USER");
-          formData.append('SYSTEM_LINK', "https://www.bcc.kz/kartakarta");
-          formData.append('SYSTEM_IBLOCK_ID', "143");
-          formData.append('SYSTEM_NAME_ELEMENT', "NAME");
-          formData.append('SYSTEM_STATUS', "2901640");
-          formData.append('SYSTEM_LID', "S1");
-          formData.append('BCC_KEY', "1v5df35v");
-          formData.append('utm_source', getUrlParameter('utm_source'));
-          formData.append('utm_medium', getUrlParameter('utm_medium'));
-          formData.append('utm_campaign', getUrlParameter('utm_campaign'));
-          formData.append('utm_term', getUrlParameter('utm_term'));
-          formData.append('utm_content', getUrlParameter('utm_content'));
+        formData.append("TELEPHONE", phoneNumber);
+        formData.append("NAME", fio);
+        formData.append("SYSTEM_TITLE", "#картакарта");
+        formData.append("SYSTEM_POST_EVENT", "NEW_USER");
+        formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
+        formData.append("SYSTEM_IBLOCK_ID", "143");
+        formData.append("SYSTEM_NAME_ELEMENT", "NAME");
+        formData.append("SYSTEM_STATUS", "2901640");
+        formData.append("SYSTEM_LID", "S1");
+        formData.append("BCC_KEY", "1v5df35v");
+        formData.append("utm_source", getUrlParameter("utm_source"));
+        formData.append("utm_medium", getUrlParameter("utm_medium"));
+        formData.append("utm_campaign", getUrlParameter("utm_campaign"));
+        formData.append("utm_term", getUrlParameter("utm_term"));
+        formData.append("utm_content", getUrlParameter("utm_content"));
 
-          const response = fetch(`https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`, {
-            method: 'POST',
-            body: formData
-          });
-          // axios.post(`https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`, {
-          //   TELEPHONE: phoneNumber,
-          //   NAME: fio,
-          //   SYSTEM_TITLE: "#картакарта",
-          //   SYSTEM_POST_EVENT: "NEW_USER",
-          //   SYSTEM_LINK: "https://www.bcc.kz/kartakarta",
-          //   SYSTEM_IBLOCK_ID: 143,
-          //   SYSTEM_NAME_ELEMENT: "NAME",
-          //   SYSTEM_STATUS: "2901640",
-          //   SYSTEM_LID: "S1",
-          //   BCC_KEY: "1v5df35v",
-          //   utm_source: "utm_source",
-          //   utm_medium: "utm_medium",
-          //   utm_campaign: "utm_campaign",
-          //   utm_term: "utm_term",
-          //   utm_content: "utm_content"
-          // })
-          //   .then(r => r.data);
-        }
-        api.card
-          .order({ fio, phoneNumber })
-          .then(m => {
-            setFio("");
-            setPhoneNumber("");
-          })
-          .catch(e => console.warn(e))
-      },
-      2000
-    );
+        const response = fetch(
+          `https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        // axios.post(`https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`, {
+        //   TELEPHONE: phoneNumber,
+        //   NAME: fio,
+        //   SYSTEM_TITLE: "#картакарта",
+        //   SYSTEM_POST_EVENT: "NEW_USER",
+        //   SYSTEM_LINK: "https://www.bcc.kz/kartakarta",
+        //   SYSTEM_IBLOCK_ID: 143,
+        //   SYSTEM_NAME_ELEMENT: "NAME",
+        //   SYSTEM_STATUS: "2901640",
+        //   SYSTEM_LID: "S1",
+        //   BCC_KEY: "1v5df35v",
+        //   utm_source: "utm_source",
+        //   utm_medium: "utm_medium",
+        //   utm_campaign: "utm_campaign",
+        //   utm_term: "utm_term",
+        //   utm_content: "utm_content"
+        // })
+        //   .then(r => r.data);
+      }
+      api.card
+        .order({ fio, phoneNumber, city })
+        .then((m) => {
+          setFio("");
+          setPhoneNumber("");
+        })
+        .catch((e) => console.warn(e));
+    }, 2000);
     ym("reachGoal", "send_mess");
+  };
+
+  const handleCityChange = (city: string) => {
+    setCity(city);
   };
   const classes = useStyles({});
   const { t } = useTranslation();
@@ -286,7 +295,10 @@ const CardOrder = (props: any) => {
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
 
   const isValid = () =>
-    fio.length > 1 && phoneNumber.replace("_", "").length === 16 && agree;
+    fio.length > 1 &&
+    city.length > 1 &&
+    phoneNumber.replace("_", "").length === 16 &&
+    agree;
 
   return (
     <Grid
@@ -326,9 +338,28 @@ const CardOrder = (props: any) => {
             onChange={(e: any) => setPhoneNumber(e.target.value)}
             label={t("block_6.phone_main")}
             InputProps={{
-              inputComponent: TextMaskCustom as any
+              inputComponent: TextMaskCustom as any,
             }}
           />
+          <TextField
+            fullWidth={true}
+            label={t("block_6.city")}
+            id="city"
+            name="city"
+            value={city}
+            onChange={(e: any) => handleCityChange(e.target.value)}
+            variant="outlined"
+            margin="normal"
+            select
+          >
+            {CityList.map((c: any) => {
+              return (
+                <MenuItem key={c.code} value={c.code}>
+                  {c.value}
+                </MenuItem>
+              );
+            })}
+          </TextField>
           <FormControlLabel
             className={classes.formControlCheckBox}
             control={
