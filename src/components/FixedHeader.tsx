@@ -3,16 +3,16 @@ import { Grid, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Link, animateScroll as scroll } from "react-scroll";
 import ReactGA from "react-ga";
-import { useTranslation } from 'react-i18next';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { useTranslation } from "react-i18next";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.between("md", "xl")]: {
       hide: {
         opacity: 0,
-        transition: "all ease-in-out .3s"
+        transition: "all ease-in-out .3s",
       },
       header: {
         position: "fixed",
@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: "21px 52px",
         backgroundColor: "#ffffff",
         boxShadow: "0px 7px 25px rgba(29, 29, 29, 0.15)",
-        transition: "all ease-in-out .3s"
+        transition: "all ease-in-out .3s",
       },
       small: {
-        display: "none"
+        display: "none",
       },
       buttonOrderCard: {
         background: "#3F0259",
@@ -45,19 +45,19 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: 0,
         "&:hover": {
           backgroundColor: "#3F0259",
-          opacity: 0.8
+          opacity: 0.8,
         },
-        overflow: "hidden"
-      }
+        overflow: "hidden",
+      },
     },
     [theme.breakpoints.down("sm")]: {
       hide: {
         display: "none",
         opacity: 0,
-        transition: "all ease-in-out .3s"
+        transition: "all ease-in-out .3s",
       },
       small: {
-        display: "none"
+        display: "none",
       },
       header: {
         position: "fixed",
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: "16px 26px",
         backgroundColor: "#ffffff",
         boxShadow: "0px 7px 25px rgba(29, 29, 29, 0.15)",
-        transition: "all ease-in-out .3s"
+        transition: "all ease-in-out .3s",
       },
       buttonOrderCard: {
         background: "#3F0259",
@@ -87,32 +87,32 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: "bold",
         "&:hover": {
           backgroundColor: "#3F0259",
-          opacity: 0.8
+          opacity: 0.8,
         },
-        overflow: "hidden"
+        overflow: "hidden",
       },
       smallcard: {
-        marginRight: 20
-      }
+        marginRight: 20,
+      },
     },
     [theme.breakpoints.down("xs")]: {
       header: {
         padding: "16px 26px",
-        disaplay: "block"
+        disaplay: "block",
       },
       logo: {
-        display: "none"
+        display: "none",
       },
       small: {
-        display: "block"
+        display: "block",
       },
       smallcard: {
         marginRight: 20,
         "& > img": {
-          width: "100%"
-        }
-      }
-    }
+          width: "100%",
+        },
+      },
+    },
   })
 );
 
@@ -121,7 +121,7 @@ let hide = true;
 const FixedHeader = (props: any) => {
   let [hide, setHide] = useState(true);
   useEffect(() => {
-    window.document.addEventListener("scroll", d => {
+    window.document.addEventListener("scroll", (d) => {
       const doc = document;
       const element = doc && doc.getElementById("secondHeader");
       const scrollTop = element && element.offsetTop;
@@ -137,14 +137,14 @@ const FixedHeader = (props: any) => {
   const onClickOrder = () => {
     ReactGA.event({
       category: "BccCard_order_card",
-      action: "order_card"
+      action: "order_card",
     });
-    props.scrollToOrder();
+    props.scrollToOrder(false);
   };
 
   const handleLangChange = (lang: any) => {
-    props.changeLang(lang)
-  }
+    props.changeLang(lang);
+  };
 
   return (
     <Grid
@@ -165,7 +165,6 @@ const FixedHeader = (props: any) => {
           alignItems="center"
           container
         >
-
           <Grid
             item
             xl={3}
@@ -176,18 +175,15 @@ const FixedHeader = (props: any) => {
             className={classes.smallcard}
           >
             <img src="icon_card_small.svg" />
-
           </Grid>
           <Grid item xl={3} lg={3} md={6} sm={4} xs={4}>
-            <Link smooth={true} to="order">
-              <Button
-                variant="contained"
-                className={classes.buttonOrderCard}
-                onClick={() => onClickOrder()}
-              >
-                {t('header.button_main')}
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              className={classes.buttonOrderCard}
+              onClick={() => onClickOrder()}
+            >
+              {t("header.button_main")}
+            </Button>
           </Grid>
         </Grid>
       </Grid>

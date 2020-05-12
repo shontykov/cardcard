@@ -4,9 +4,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { paddingDownSm, paddingSmXl, rootSmXl } from "./helper/DefaultStyle";
 import ReactGA from "react-ga";
 import "../App.css";
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useTranslation } from 'react-i18next';
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useTranslation } from "react-i18next";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.down("sm")]: {
@@ -18,24 +18,24 @@ const useStyles = makeStyles((theme: Theme) =>
         height: "460px",
         paddingBottom: 0,
         paddingLeft: "18px",
-        paddingRight: "18px"
+        paddingRight: "18px",
       },
       root: {
         height: "400px",
-        alignContent: "space-between"
+        alignContent: "space-between",
       },
       logo_img: {
         width: "126px",
-        height: "30px"
+        height: "30px",
       },
       cardDescriptionBlock: {
-        marginTop: "5px"
+        marginTop: "5px",
       },
       cardTitle: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "32px",
-        color: "white"
+        color: "white",
       },
       cardWhatYourWant: {
         fontStyle: "normal",
@@ -43,21 +43,21 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: "18px",
         color: "white",
         opacity: 0.87,
-        marginBottom: 10
+        marginBottom: 10,
       },
       featureTitle: {
         fontStyle: "normal",
         fontWeight: 500,
         fontSize: "14px",
         color: "white",
-        marginTop: "3px!important"
+        marginTop: "3px!important",
       },
       featureDesc: {
         fontStyle: "normal",
         fontWeight: 500,
         fontSize: "12px",
         color: "white",
-        opacity: 0.54
+        opacity: 0.54,
       },
       buttonOrderCard: {
         fontStyle: "normal",
@@ -70,21 +70,21 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: "white",
         borderRadius: "2px",
         color: "#141414",
-        marginBottom: "20px"
+        marginBottom: "20px",
       },
       grid_header: {
         margin: 0,
         display: "grid",
         "& > div": {
-          padding: "5px 0!important"
-        }
-      }
+          padding: "5px 0!important",
+        },
+      },
     },
     [theme.breakpoints.between("sm", "xl")]: {
       mainRoot: {
         background: "url(header-main.svg) no-repeat center center fixed",
         backgroundSize: "cover",
-        height: 580
+        height: 580,
       },
       ...rootSmXl,
       root: {
@@ -92,41 +92,41 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundSize: "cover",
         backgroundPosition: "top !important",
         padding: paddingSmXl,
-        paddingBottom: 0
+        paddingBottom: 0,
       },
       logo_img: {
         width: "168px",
-        height: "40px"
+        height: "40px",
       },
       cardDescriptionBlock: {
-        marginTop: "80px"
+        marginTop: "80px",
       },
       cardTitle: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "48px",
-        color: "white"
+        color: "white",
       },
       cardWhatYourWant: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "24px",
         color: "white",
-        opacity: 0.87
+        opacity: 0.87,
       },
       featureTitle: {
         fontStyle: "normal",
         fontWeight: 500,
         fontSize: "20px",
         color: "white",
-        marginTop: "42px"
+        marginTop: "42px",
       },
       featureDesc: {
         fontStyle: "normal",
         fontWeight: 500,
         fontSize: "16px",
         color: "white",
-        opacity: 0.54
+        opacity: 0.54,
       },
       buttonOrderCard: {
         fontStyle: "normal",
@@ -139,31 +139,31 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: "white",
         borderRadius: "4px",
         color: "#141414",
-        marginBottom: "150px"
-      }
+        marginBottom: "150px",
+      },
     },
     [theme.breakpoints.between("sm", "md")]: {
       mainRoot: {
-        height: 620
-      }
+        height: 620,
+      },
     },
     [theme.breakpoints.between("lg", "xl")]: {
       mainRoot: {
-        height: 680
-      }
+        height: 680,
+      },
     },
     select: {
-      color: 'white',
-      '&:before': {
-        borderColor: 'white',
+      color: "white",
+      "&:before": {
+        borderColor: "white",
       },
-      '&:after': {
-        borderColor: 'white',
-      }
+      "&:after": {
+        borderColor: "white",
+      },
     },
     icon: {
-      fill: 'white',
-    }
+      fill: "white",
+    },
   })
 );
 
@@ -173,14 +173,14 @@ const Header = (props: any) => {
   const eventGAOrderCard = () => {
     ReactGA.event({
       category: "BccCard_1button_to_order_card",
-      action: "1button_to_order_card"
+      action: "1button_to_order_card",
     });
     props.scrollToOrder(true);
   };
 
   const handleLangChange = (lang: any) => {
-    props.changeLang(lang)
-  }
+    props.changeLang(lang);
+  };
 
   return (
     <Grid container className={classes.mainRoot}>
@@ -196,7 +196,15 @@ const Header = (props: any) => {
                 />
               </div>
             </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
+            <Grid
+              item
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
+              xs={6}
+              style={{ textAlign: "right" }}
+            >
               <Select
                 className={classes.select}
                 value={props.lang}
@@ -216,37 +224,39 @@ const Header = (props: any) => {
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Grid container className={classes.cardDescriptionBlock}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <Typography className={classes.cardTitle}>{t('header.title')}</Typography>
+              <Typography className={classes.cardTitle}>
+                {t("header.title")}
+              </Typography>
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Typography className={classes.cardWhatYourWant}>
-                {t('header.subtitle_desc')}
+                {t("header.subtitle_desc")}
               </Typography>
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Grid container spacing={6} className={classes.grid_header}>
                 <Grid item>
                   <Typography className={classes.featureTitle}>
-                    {t('header.title_2_desc')}
+                    {t("header.title_2_desc")}
                   </Typography>
                   <Typography className={classes.featureDesc}>
-                    {t('header.subtitle_2_desc')}
+                    {t("header.subtitle_2_desc")}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography className={classes.featureTitle}>
-                    {t('header.title_3_desc')}
+                    {t("header.title_3_desc")}
                   </Typography>
                   <Typography className={classes.featureDesc}>
-                    {t('header.subtitle_3_desc')}
+                    {t("header.subtitle_3_desc")}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography className={classes.featureTitle}>
-                    {t('header.title_4_desc')}
+                    {t("header.title_4_desc")}
                   </Typography>
                   <Typography className={classes.featureDesc}>
-                    {t('header.subtitle_4_desc')}
+                    {t("header.subtitle_4_desc")}
                   </Typography>
                 </Grid>
               </Grid>
@@ -257,7 +267,7 @@ const Header = (props: any) => {
                 variant="contained"
                 className={classes.buttonOrderCard}
               >
-                {t('header.button_main')}
+                {t("header.button_main")}
               </Button>
             </Grid>
           </Grid>

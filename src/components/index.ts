@@ -5,6 +5,7 @@ export { default as HowToGetCard } from "./HowToGetCard";
 export { default as HelpYou } from "./HelpYou";
 export { default as MobileBanking } from "./MobileBanking";
 export { default as CardOrder } from "./CardOrder";
+export { default as OldCardOrder } from "./OldCardOrder";
 export { default as AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
 export { default as GoodAnyTimeWhere } from "./GoodAnyTimeWhere/GoodAnyTimeWhere";
 export { default as Partners } from "./Partners";
