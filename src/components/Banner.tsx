@@ -382,6 +382,7 @@ const Banner = () => {
   const [open4, setOpen4] = React.useState(false);
   const [open5, setOpen5] = React.useState(false);
   const [open6, setOpen6] = React.useState(false);
+  const [open7, setOpen7] = React.useState(false);
   const [closed, setClosed] = React.useState(false);
 
   return (
@@ -392,6 +393,15 @@ const Banner = () => {
         </Typography>
       </Grid>
       <Grid container className={classes.bannerMain}>
+        <Grid className={classes.fixedRoot}>
+          <img
+            src={t("banners_4.img")}
+            onClick={() => {
+              setOpen7(true);
+            }}
+          />
+        </Grid>
+
         <Grid className={classes.fixedRoot}>
           <img
             src={t("banners_3.img")}
@@ -793,43 +803,50 @@ const Banner = () => {
             <Grid className={classes.modalMain}>
               <Grid className={classes.modalTitle}>
                 <h3 style={{ marginBottom: 10 }}>{t("banners_3.text_100")}</h3>
-                <p style={{ textDecoration: "underline" }}>
+                <p>
                   {t("banners_3.text_0")}
                 </p>
-                <p>{t("banners_3.text_01")}</p>
-                <p style={{ textDecoration: "underline" }}>
-                  {t("banners_3.text_20")}
-                </p>
+                <p style={{ marginBottom: "10px" }}>{t("banners_3.text_01")}</p>
+                <p>{t("banners_3.text_20")}</p>
                 <p>{t("banners_3.text_2")}</p>
-                <p>{t("banners_3.text_30")}</p>
-                <p>{t("banners_3.text_3")}</p>
-
-                <h4>{t("banners_3.text_311")}</h4>
-
-                <p>{t("banners_3.text_4")}</p>
-                <p>{t("banners_3.text_5")}</p>
-                <p>{t("banners_3.text_6")}</p>
-
-                <p>
-                  {t("banners_3.text_7")}{" "}
-                  <a href="https://m.bcc.kz/markets">{t("banners_3.text_9")}</a>
-                </p>
-                <p>
-                  {t("banners_3.text_91")}{" "}
-                  <a href="https://wolt.onelink.me/Uy67/895c68dd">
-                    {t("banners_3.text_92")}
-                  </a>
-                </p>
-                <p>{t("banners_3.text_1000")}</p>
               </Grid>
             </Grid>
           </Grid>
 
           <div
             className={classes.drpBack}
-            onClick={() => setOpen5(false)}
+            onClick={() => setOpen6(false)}
           ></div>
         </Grid>
+
+        <Grid className={`${classes.fixedModal} ${open7 ? classes.open : ""}`}>
+          <Grid className={classes.modalClose}>
+            <IconButton
+              className={classes.fixedBtnModal}
+              onClick={() => setOpen7(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Grid className={classes.modalMain}>
+              <Grid className={classes.modalTitle}>
+                <h3 style={{ marginBottom: 10 }}>{t("banners_4.text_100")}</h3>
+                <p> {t("banners_4.text_0")} </p>
+                <p style={{ marginBottom: "10px" }}>{t("banners_4.text_01")}</p>
+                <p style={{ marginBottom: "10px" }}> {t("banners_4.text_20")} </p>
+                <p>{t("banners_4.text_2")}</p>
+                <p>{t("banners_4.text_30")}</p>
+                <p>{t("banners_4.text_3")}</p>
+                <h4>{t("banners_4.text_311")}</h4>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <div
+            className={classes.drpBack}
+            onClick={() => setOpen7(false)}
+          ></div>
+        </Grid>
+
       </Grid>
     </Grid>
   );
