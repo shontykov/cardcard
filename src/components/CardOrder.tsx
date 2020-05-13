@@ -287,14 +287,14 @@ const CardOrder = (props: any) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [middleName, setMiddleName] = React.useState("");
-  const [step, setStep] = React.useState(2);
+  const [step, setStep] = React.useState(0);
   const [iin, setIin] = React.useState("");
   const [code, setCode] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
   const [phoneError, setPhoneError] = React.useState<boolean>(false);
   const [timer, setTimer] = React.useState(0);
-  const [resStatus, setResStatus] = React.useState<number | null>(1);
+  const [resStatus, setResStatus] = React.useState<number | null>(null);
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
   const classes = useStyles({});
