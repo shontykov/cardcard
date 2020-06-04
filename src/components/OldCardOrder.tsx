@@ -186,7 +186,7 @@ function getUrlParameter(name: string) {
 }
 const OldCardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
-  const [step, setStep] = React.useState(1);
+  const [step, setStep] = React.useState(0);
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState(0);
