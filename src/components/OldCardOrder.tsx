@@ -19,7 +19,7 @@ import MaskedInput from "react-maskedinput";
 import ym from "react-yandex-metrika";
 import { useTranslation } from "react-i18next";
 import BlockUi from "react-block-ui";
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, MenuItem } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -150,6 +150,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+    cityTitle: {
+      textTransform: "capitalize",
+    },
   })
 );
 
@@ -194,6 +197,21 @@ const OldCardOrder = (props: any) => {
   const [phoneError, setPhoneError] = React.useState<boolean>(false);
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
+  const [city, setCity] = React.useState("");
+  const [cities, setCities] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    api.reference
+      .getCityBranches()
+      .then((m: any[]) =>
+        setCities(
+          m.map(
+            (c: any) =>
+              c.value && c.value.charAt(0) + c.value.toLowerCase().slice(1)
+          )
+        )
+      );
+  }, []);
 
   React.useEffect(() => {
     let timeOut = setInterval(() => {
@@ -268,15 +286,7 @@ const OldCardOrder = (props: any) => {
       })
       .then((userContext) => {
         localStorage.setItem("userContext", JSON.stringify(userContext));
-        setStep(0);
         sendForm();
-        setFio("");
-        setPhoneNumber("");
-        setTimer(0);
-        setCode("");
-        setPhoneError(false);
-        setLoading(false);
-        setOpenError(false);
       })
       .catch((e: any) => {
         console.error(e);
@@ -354,13 +364,35 @@ const OldCardOrder = (props: any) => {
           }
         );
       }
-      api.card
-        .order({ fio, phoneNumber })
-        .then((m) => {
-          setFio("");
-          setPhoneNumber("");
+      api.camunda
+        .callback({
+          fio: fio,
+          phone: formatPhoneNumber(),
+          city: city,
         })
-        .catch((e) => console.warn(e));
+        .then((r: any) => {
+          setStep(0);
+          setFio("");
+          setCity("");
+          setPhoneNumber("");
+          setTimer(0);
+          setCode("");
+          setPhoneError(false);
+          setLoading(false);
+          setOpenError(false);
+        })
+        .catch((e: any) => {
+          console.error(e);
+          setStep(0);
+          setFio("");
+          setCity("");
+          setPhoneNumber("");
+          setTimer(0);
+          setCode("");
+          setPhoneError(false);
+          setLoading(false);
+          setOpenError(false);
+        });
     }, 2000);
 
     ym("reachGoal", "send_mess");
@@ -372,16 +404,9 @@ const OldCardOrder = (props: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (step === 0) {
-      const min = 1;
-      const max = 10;
-      const rand = min + Math.random() * (max - min);
-      console.log(Math.floor(rand), "val");
-      console.log(Math.floor(rand) === 1, "cond");
-      if (Math.floor(rand) === 1) getOtp();
-      else sendForm();
-    }
+    getOtp();
   };
+
   const classes = useStyles({});
   const { t } = useTranslation();
 
@@ -447,7 +472,31 @@ const OldCardOrder = (props: any) => {
                     inputComponent: TextMaskCustom as any,
                   }}
                 />
-
+                <TextField
+                  fullWidth={true}
+                  label={t("block_6.city")}
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={(e: any) => setCity(e.target.value)}
+                  variant="outlined"
+                  margin="normal"
+                  select
+                >
+                  {cities.map((c: string) => {
+                    return (
+                      c !== null && (
+                        <MenuItem
+                          className={classes.cityTitle}
+                          key={c}
+                          value={c}
+                        >
+                          {c}
+                        </MenuItem>
+                      )
+                    );
+                  })}
+                </TextField>
                 <FormControlLabel
                   className={classes.formControlCheckBox}
                   control={

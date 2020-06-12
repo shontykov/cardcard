@@ -14,4 +14,9 @@ export class ReferenceController {
       baseURL: webConfigEnv.REFERENCE_API,
     });
   }
+  async getCityBranches(): Promise<any[]> {
+    return server.get(`/api/generic/CityBranch`, {
+      baseURL: webConfigEnv.REFERENCE_API,
+    });
+  }
 }
