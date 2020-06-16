@@ -187,6 +187,7 @@ function getUrlParameter(name: string) {
     ? ""
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
 const OldCardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
   const [step, setStep] = React.useState(0);
@@ -198,20 +199,50 @@ const OldCardOrder = (props: any) => {
   const [isLoading, setLoading] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
   const [city, setCity] = React.useState("");
-  const [cities, setCities] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    api.reference
-      .getCityBranches()
-      .then((m: any[]) =>
-        setCities(
-          m.map(
-            (c: any) =>
-              c.value && c.value.charAt(0) + c.value.toLowerCase().slice(1)
-          )
-        )
-      );
-  }, []);
+  const cities = [
+    "Актау",
+    "Жанаозен",
+    "Актобе",
+    "Алматы",
+    "Атырау",
+    "Кульсары",
+    "Жезказган",
+    "Сатпаев",
+    "Караганда",
+    "Темиртау",
+    "Балхаш",
+    "Кокшетау",
+    "Степногорск",
+    "Костанай",
+    "Рудный",
+    "Затобольск",
+    "Кызылорда",
+    "Шиели",
+    "Нур-Султан",
+    "Павлодар",
+    "Экибастуз",
+    "Петропавловск",
+    "Семей",
+    "Шемонаиха",
+    "Аягоз",
+    "Талдыкорган",
+    "Отеген батыр",
+    "Капшагай",
+    "Талгар",
+    "Каскелен",
+    "Жаркент",
+    "Тараз",
+    "Шу",
+    "Уральск",
+    "Аксай",
+    "Усть-Каменогорск",
+    "Зайсан",
+    "Алтай",
+    "Риддер",
+    "Шымкент",
+    "Сарыагаш",
+    "Аксу",
+  ];
 
   React.useEffect(() => {
     let timeOut = setInterval(() => {
@@ -225,7 +256,10 @@ const OldCardOrder = (props: any) => {
   const isValid = () => {
     if (step === 0) {
       return (
-        fio.length > 1 && phoneNumber.replace("_", "").length === 16 && agree
+        fio.length > 1 &&
+        phoneNumber.replace("_", "").length === 16 &&
+        city.length > 1 &&
+        agree
       );
     } else if (step === 1) {
       return code.length === 6;
@@ -451,7 +485,7 @@ const OldCardOrder = (props: any) => {
                   margin="normal"
                   fullWidth
                   id="name"
-                  label={t("block_6.name_main")}
+                  label={t("block_6.name_main") + "*"}
                   name="name"
                   value={fio}
                   onChange={(e: any) => setFio(e.target.value)}
@@ -474,7 +508,7 @@ const OldCardOrder = (props: any) => {
                 />
                 <TextField
                   fullWidth={true}
-                  label={t("block_6.city")}
+                  label={t("block_6.city") + "*"}
                   id="city"
                   name="city"
                   value={city}
