@@ -395,6 +395,14 @@ const Banner = () => {
       <Grid container className={classes.bannerMain}>
         <Grid className={classes.fixedRoot}>
           <img
+            src="bannerMain-40.png"
+            onClick={() => {
+              setOpen3(true);
+            }}
+          />
+        </Grid>
+        <Grid className={classes.fixedRoot}>
+          <img
             src={t("banners_4.img")}
             onClick={() => {
               setOpen7(true);
@@ -447,14 +455,7 @@ const Banner = () => {
           />
         </Grid>
 
-        <Grid className={classes.fixedRoot}>
-          <img
-            src="bannerMain-21.svg"
-            onClick={() => {
-              setOpen3(true);
-            }}
-          />
-        </Grid>
+
 
         <Grid className={`${classes.fixedModal} ${open ? classes.open : ""}`}>
           <Grid className={classes.modalClose}>
@@ -618,33 +619,22 @@ const Banner = () => {
                 <h3>{t("banners.text_01")}</h3>
                 <p>{t("banners.text_1")}</p>
                 <p>
-                  <b>{t("banners.text_20")}</b>
                   {t("banners.text_2")}
                 </p>
                 <p>
-                  <b>{t("banners.text_30")}</b>
-                  {t("banners.text_3")}{" "}
-                  <a href="https://www.bcc.kz/adult_content.txt">
-                    {t("banners.text_311")}
-                  </a>
-                </p>
-                <p>
-                  <b>{t("banners.text_4")}</b>
-                  {t("banners.text_5")}
+                  {t("banners.text_3")}
                 </p>
                 <p style={{ textDecoration: "underline" }}>
                   {t("banners.text_6")}
                 </p>
                 <p>{t("banners.text_7")}</p>
                 <p>{t("banners.text_8")}</p>
-                <p style={{ textDecoration: "underline" }}>
-                  {t("banners.text_9")}
-                </p>
+                <p>{t("banners.text_80")}</p>
+
                 <p>{t("banners.text_91")}</p>
                 <p>{t("banners.text_92")}</p>
                 <p>{t("banners.text_93")}</p>
-                <p>{t("banners.text_94")}</p>
-                <p>{t("banners.text_95")}</p>
+                <a href="https://vol.pillikan.kz/u/NzcwMTE2OTIxODk=">{t("banners.text_94")}</a>
               </Grid>
             </Grid>
           </Grid>
