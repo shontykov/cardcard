@@ -15,4 +15,16 @@ export class CamundaController {
       }
     );
   }
+  async callback(variables: any): Promise<any> {
+    return server.post(
+      `/process/start`,
+      {
+        processDefinitionKey: "kartakarta_callback",
+        variables,
+      },
+      {
+        baseURL: webConfigEnv.GREEN_API,
+      }
+    );
+  }
 }

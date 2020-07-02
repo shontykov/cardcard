@@ -17,8 +17,10 @@ import ReactGA from "react-ga";
 import api from "../api/Api";
 import MaskedInput from "react-maskedinput";
 import ym from "react-yandex-metrika";
-import { getByDisplayValue } from "@testing-library/react";
 import { useTranslation } from "react-i18next";
+import BlockUi from "react-block-ui";
+import { Snackbar, MenuItem } from "@material-ui/core";
+import { Alert as MuiAlert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -148,12 +150,19 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+    cityTitle: {
+      textTransform: "capitalize",
+    },
   })
 );
 
 interface TextMaskCustomProps {
   inputRef: (ref: HTMLInputElement | null) => void;
 }
+
+const Alert = (props: any) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const TextMaskCustom = (props: TextMaskCustomProps) => {
   const { inputRef, ...other } = props;
@@ -178,13 +187,149 @@ function getUrlParameter(name: string) {
     ? ""
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
 const OldCardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
+  const [step, setStep] = React.useState(0);
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
+  const [timer, setTimer] = React.useState(0);
+  const [code, setCode] = React.useState("");
+  const [phoneError, setPhoneError] = React.useState<boolean>(false);
+  const [isLoading, setLoading] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+  const [city, setCity] = React.useState("");
+  const cities = [
+    "Актау",
+    "Жанаозен",
+    "Актобе",
+    "Алматы",
+    "Атырау",
+    "Кульсары",
+    "Жезказган",
+    "Сатпаев",
+    "Караганда",
+    "Темиртау",
+    "Балхаш",
+    "Кокшетау",
+    "Степногорск",
+    "Костанай",
+    "Рудный",
+    "Затобольск",
+    "Кызылорда",
+    "Шиели",
+    "Нур-Султан",
+    "Павлодар",
+    "Экибастуз",
+    "Петропавловск",
+    "Семей",
+    "Шемонаиха",
+    "Аягоз",
+    "Талдыкорган",
+    "Отеген батыр",
+    "Капшагай",
+    "Талгар",
+    "Каскелен",
+    "Жаркент",
+    "Тараз",
+    "Шу",
+    "Уральск",
+    "Аксай",
+    "Усть-Каменогорск",
+    "Зайсан",
+    "Алтай",
+    "Риддер",
+    "Шымкент",
+    "Сарыагаш",
+    "Аксу",
+  ];
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  React.useEffect(() => {
+    let timeOut = setInterval(() => {
+      if (timer !== 0) {
+        setTimer(timer - 1);
+      }
+    }, 1000);
+    return () => clearInterval(timeOut);
+  }, [timer]);
+
+  const isValid = () => {
+    if (step === 0) {
+      return (
+        fio.length > 1 &&
+        phoneNumber.replace("_", "").length === 16 &&
+        city.length > 1 &&
+        agree
+      );
+    } else if (step === 1) {
+      return code.length === 6;
+    } else {
+      return true;
+    }
+  };
+
+  const formatPhoneNumber = () => {
+    let res = phoneNumber;
+    if (phoneNumber.slice(0, 1) === "8") res = "7" + phoneNumber.slice(1);
+    return res.replace(/\(|\)| /g, "");
+  };
+
+  const getOtp = () => {
+    if (phoneNumber.substr(2, 1) !== "7") {
+      setPhoneError(true);
+      return;
+    } else setPhoneError(false);
+    setLoading(true);
+    setTimer(90);
+    api.authOtp
+      .sendOtp({ phone: formatPhoneNumber() })
+      .then(() => {
+        localStorage.removeItem("userContext");
+        setStep(1);
+        setLoading(false);
+      })
+      .catch((e: any) => {
+        console.error(e);
+        setOpenError(true);
+        setLoading(false);
+      });
+  };
+
+  const onReSend = () => {
+    setLoading(true);
+    api.authOtp
+      .sendOtp({ phone: formatPhoneNumber() })
+      .then(() => {
+        setTimer(90);
+        setCode("");
+        setLoading(false);
+      })
+      .catch((e: any) => {
+        console.error(e);
+        setOpenError(true);
+        setLoading(false);
+      });
+  };
+
+  const onSubmitOtp = () => {
+    setLoading(true);
+    api.authOtp
+      .confirmOtp({
+        phone: formatPhoneNumber(),
+        otp: code,
+      })
+      .then((userContext) => {
+        localStorage.setItem("userContext", JSON.stringify(userContext));
+        sendForm();
+      })
+      .catch((e: any) => {
+        console.error(e);
+        setOpenError(true);
+        setLoading(false);
+      });
+  };
+
+  const sendForm = () => {
     ReactGA.event({
       category: "BccCard_kartakarta_Apply_Success",
       action: "kartakarta_Apply_Success",
@@ -252,43 +397,55 @@ const OldCardOrder = (props: any) => {
             body: formData,
           }
         );
-        // axios.post(`https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`, {
-        //   TELEPHONE: phoneNumber,
-        //   NAME: fio,
-        //   SYSTEM_TITLE: "#картакарта",
-        //   SYSTEM_POST_EVENT: "NEW_USER",
-        //   SYSTEM_LINK: "https://www.bcc.kz/kartakarta",
-        //   SYSTEM_IBLOCK_ID: 143,
-        //   SYSTEM_NAME_ELEMENT: "NAME",
-        //   SYSTEM_STATUS: "2901640",
-        //   SYSTEM_LID: "S1",
-        //   BCC_KEY: "1v5df35v",
-        //   utm_source: "utm_source",
-        //   utm_medium: "utm_medium",
-        //   utm_campaign: "utm_campaign",
-        //   utm_term: "utm_term",
-        //   utm_content: "utm_content"
-        // })
-        //   .then(r => r.data);
       }
-      api.card
-        .order({ fio, phoneNumber })
-        .then((m) => {
-          setFio("");
-          setPhoneNumber("");
+      api.camunda
+        .callback({
+          fio: fio,
+          phone: formatPhoneNumber(),
+          city: city,
         })
-        .catch((e) => console.warn(e));
+        .then((r: any) => {
+          setStep(0);
+          setFio("");
+          setCity("");
+          setPhoneNumber("");
+          setTimer(0);
+          setCode("");
+          setPhoneError(false);
+          setLoading(false);
+          setOpenError(false);
+        })
+        .catch((e: any) => {
+          console.error(e);
+          setStep(0);
+          setFio("");
+          setCity("");
+          setPhoneNumber("");
+          setTimer(0);
+          setCode("");
+          setPhoneError(false);
+          setLoading(false);
+          setOpenError(false);
+        });
     }, 2000);
+
     ym("reachGoal", "send_mess");
   };
+
+  const handleClose = () => {
+    setOpenError(false);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    getOtp();
+  };
+
   const classes = useStyles({});
   const { t } = useTranslation();
 
   const theme = useTheme();
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const isValid = () =>
-    fio.length > 1 && phoneNumber.replace("_", "").length === 16 && agree;
 
   return (
     <Grid
@@ -305,84 +462,191 @@ const OldCardOrder = (props: any) => {
           {t("block_6.title_main1")} <br />
           {t("block_6.title_main_12")}
         </Typography>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={openError}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {t("block_6.res_error")}
+          </Alert>
+        </Snackbar>
         <form onSubmit={handleSubmit} className={classes.form}>
-          <TextField
-            size={isXS ? "small" : "medium"}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="name"
-            label={t("block_6.name_main")}
-            name="name"
-            value={fio}
-            onChange={(e: any) => setFio(e.target.value)}
-          />
-          <TextField
-            size={isXS ? "small" : "medium"}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="phone"
-            name="phone"
-            value={phoneNumber}
-            onChange={(e: any) => setPhoneNumber(e.target.value)}
-            label={t("block_6.phone_main")}
-            InputProps={{
-              inputComponent: TextMaskCustom as any,
-            }}
-          />
-          <FormControlLabel
-            className={classes.formControlCheckBox}
-            control={
-              <Checkbox
-                value="remember"
-                color="primary"
-                checked={agree}
-                onChange={() => setAgree(!agree)}
-              />
-            }
-            label={
-              <Typography className={classes.checkBoxLabel}>
-                {t("block_6.checkbox_desc")}
-              </Typography>
-            }
-          />
-          <Grid container style={{ marginTop: "15px" }} spacing={4}>
-            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-              <Grid container spacing={2}>
-                <Grid
-                  item
-                  xl={false}
-                  lg={false}
-                  md={false}
-                  sm={false}
-                  xs={false}
+          <BlockUi tag="div" blocking={isLoading}>
+            {step === 0 ? (
+              <>
+                <TextField
+                  size={isXS ? "small" : "medium"}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="name"
+                  label={t("block_6.name_main") + "*"}
+                  name="name"
+                  value={fio}
+                  onChange={(e: any) => setFio(e.target.value)}
+                />
+                <TextField
+                  size={isXS ? "small" : "medium"}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="phone"
+                  name="phone"
+                  helperText={phoneError ? t("block_6.phone_error") : ""}
+                  error={phoneError ? true : false}
+                  value={phoneNumber}
+                  onChange={(e: any) => setPhoneNumber(e.target.value)}
+                  label={t("block_6.phone_main")}
+                  InputProps={{
+                    inputComponent: TextMaskCustom as any,
+                  }}
+                />
+                <TextField
+                  fullWidth={true}
+                  label={t("block_6.city") + "*"}
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={(e: any) => setCity(e.target.value)}
+                  variant="outlined"
+                  margin="normal"
+                  select
                 >
-                  <img
-                    src="card_order_security.svg"
-                    className={classes.icon}
-                    alt="order_security"
-                  />
+                  {cities.map((c: string) => {
+                    return (
+                      c !== null && (
+                        <MenuItem
+                          className={classes.cityTitle}
+                          key={c}
+                          value={c}
+                        >
+                          {c}
+                        </MenuItem>
+                      )
+                    );
+                  })}
+                </TextField>
+                <FormControlLabel
+                  className={classes.formControlCheckBox}
+                  control={
+                    <Checkbox
+                      value="remember"
+                      color="primary"
+                      checked={agree}
+                      onChange={() => setAgree(!agree)}
+                    />
+                  }
+                  label={
+                    <Typography className={classes.checkBoxLabel}>
+                      {t("block_6.checkbox_desc")}
+                    </Typography>
+                  }
+                />
+                <Grid container style={{ marginTop: "15px" }} spacing={4}>
+                  <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                    <Grid container spacing={2}>
+                      <Grid
+                        item
+                        xl={false}
+                        lg={false}
+                        md={false}
+                        sm={false}
+                        xs={false}
+                      >
+                        <img
+                          src="card_order_security.svg"
+                          className={classes.icon}
+                          alt="order_security"
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        xl={true}
+                        lg={true}
+                        md={true}
+                        sm={true}
+                        xs={true}
+                      >
+                        <Typography className={classes.garant}>
+                          {t("block_6.subtitle_desc")}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      className={classes.submit}
+                      disabled={!isValid()}
+                    >
+                      {t("block_6.help_btn")}
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xl={true} lg={true} md={true} sm={true} xs={true}>
-                  <Typography className={classes.garant}>
-                    {t("block_6.subtitle_desc")}
-                  </Typography>
+              </>
+            ) : step === 1 ? (
+              <>
+                <Grid
+                  container
+                  style={{ marginTop: "15px", alignItems: "center" }}
+                  spacing={4}
+                >
+                  <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                    <TextField
+                      size={isXS ? "small" : "medium"}
+                      variant="outlined"
+                      className={classes.code}
+                      margin="normal"
+                      fullWidth
+                      id="code"
+                      name="code"
+                      value={code}
+                      onChange={(e: any) =>
+                        setCode(e.target.value.replace(/\D/g, "").substr(0, 6))
+                      }
+                      label={t("block_6.code_main")}
+                    />
+                  </Grid>
+                  <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                    <Button
+                      onClick={() => onSubmitOtp()}
+                      fullWidth
+                      variant="contained"
+                      className={classes.submit}
+                      disabled={!isValid()}
+                    >
+                      {t("block_6.confirm_main")}
+                    </Button>
+                  </Grid>
+                  {timer !== 0 ? (
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                      <Typography className={classes.timer}>
+                        {t("block_6.resend_sms_timer")} ({timer})
+                      </Typography>
+                    </Grid>
+                  ) : (
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                      <Typography
+                        className={classes.linkReSendSms}
+                        onClick={() => onReSend()}
+                      >
+                        {t("block_6.resend_sms")}
+                      </Typography>
+                    </Grid>
+                  )}
                 </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                className={classes.submit}
-                disabled={!isValid()}
-              >
-                {t("block_6.help_btn")}
-              </Button>
-            </Grid>
-          </Grid>
+              </>
+            ) : (
+              <></>
+            )}
+          </BlockUi>
         </form>
       </Paper>
     </Grid>
