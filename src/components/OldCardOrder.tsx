@@ -313,6 +313,10 @@ const OldCardOrder = (props: any) => {
 
   const onSubmitOtp = () => {
     setLoading(true);
+    ReactGA.event({
+      category: "Kartakarta_finalfeedback",
+      action: "Success_finalfeedback",
+    });
     api.authOtp
       .confirmOtp({
         phone: formatPhoneNumber(),
