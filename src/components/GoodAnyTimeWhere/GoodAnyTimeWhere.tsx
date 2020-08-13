@@ -4,24 +4,25 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { paddingDownSm, rootSmXl } from "../helper/DefaultStyle";
 import Installment from "./Installment";
 import CreditCard from "./CreditCard";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import ReactGA from "react-ga";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.down("sm")]: {
       mainRoot: {
-        background: "#FAFAFA"
+        background: "#FAFAFA",
       },
       root: {
-        padding: paddingDownSm
+        padding: paddingDownSm,
       },
       title: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: 26,
-        color: "#141414"
+        color: "#141414",
       },
       tabButtonsBlock: {
-        marginTop: 10
+        marginTop: 10,
       },
       tabButtonActive: {
         paddingLeft: 14,
@@ -36,8 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
         textTransform: "none",
         "&:hover, &:active": {
           backgroundColor: "#FFCF87",
-          opacity: 0.8
-        }
+          opacity: 0.8,
+        },
       },
       tabButton: {
         paddingLeft: 14,
@@ -49,28 +50,28 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: "normal",
         fontSize: 14,
         width: "100%",
-        textTransform: "none"
+        textTransform: "none",
       },
       btn_p: {
-        '& > div': {
+        "& > div": {
           padding: "2px!important",
-          width: "50%"
-        }
-      }
+          width: "50%",
+        },
+      },
     },
     [theme.breakpoints.between("sm", "xl")]: {
       mainRoot: {
-        background: "#FAFAFA"
+        background: "#FAFAFA",
       },
       ...rootSmXl,
       title: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: 40,
-        color: "#141414"
+        color: "#141414",
       },
       tabButtonsBlock: {
-        marginTop: 10
+        marginTop: 10,
       },
       tabButtonActive: {
         paddingLeft: 24,
@@ -84,8 +85,8 @@ const useStyles = makeStyles((theme: Theme) =>
         textTransform: "none",
         "&:hover, &:active": {
           backgroundColor: "#FFCF87",
-          opacity: 0.8
-        }
+          opacity: 0.8,
+        },
       },
       tabButton: {
         paddingLeft: 24,
@@ -96,15 +97,15 @@ const useStyles = makeStyles((theme: Theme) =>
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "14px",
-        textTransform: "none"
-      }
-    }
+        textTransform: "none",
+      },
+    },
   })
 );
 
 enum CardType {
   Installment,
-  CreditCard
+  CreditCard,
 }
 
 const GoodAnyTimeWhere = (props: any) => {
@@ -120,7 +121,7 @@ const GoodAnyTimeWhere = (props: any) => {
       <Grid container className={classes.root} spacing={2}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Typography className={classes.title}>
-            {t('block_3.title_main')}
+            {t("block_3.title_main")}
           </Typography>
         </Grid>
         <Grid
@@ -135,26 +136,38 @@ const GoodAnyTimeWhere = (props: any) => {
           <Grid container spacing={2} className={classes.btn_p}>
             <Grid item>
               <Button
-                onClick={() => setCardType(CardType.Installment)}
+                onClick={() => {
+                  setCardType(CardType.Installment);
+                  ReactGA.event({
+                    category: "",
+                    action: "button_smart_installments",
+                  });
+                }}
                 className={
                   cardType === CardType.Installment
                     ? classes.tabButtonActive
                     : classes.tabButton
                 }
               >
-                {t('block_3.button_1_tab_1')}
+                {t("block_3.button_1_tab_1")}
               </Button>
             </Grid>
             <Grid item>
               <Button
-                onClick={() => setCardType(CardType.CreditCard)}
+                onClick={() => {
+                  setCardType(CardType.CreditCard);
+                  ReactGA.event({
+                    category: "",
+                    action: "button_smart_installments",
+                  });
+                }}
                 className={
                   cardType === CardType.CreditCard
                     ? classes.tabButtonActive
                     : classes.tabButton
                 }
               >
-                {t('block_3.button_2_tab_2')}
+                {t("block_3.button_2_tab_2")}
               </Button>
             </Grid>
           </Grid>
@@ -163,8 +176,8 @@ const GoodAnyTimeWhere = (props: any) => {
           {cardType === CardType.Installment ? (
             <Installment {...props} />
           ) : (
-              <CreditCard />
-            )}
+            <CreditCard />
+          )}
         </Grid>
       </Grid>
     </Grid>

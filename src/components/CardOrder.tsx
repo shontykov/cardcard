@@ -21,6 +21,8 @@ import BlockUi from "react-block-ui";
 import { Snackbar } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import "react-block-ui/style.css";
+import moment from "moment";
+import * as Scroll from "react-scroll";
 
 const webConfigEnv = (window as any).env;
 
@@ -327,6 +329,23 @@ const CardOrder = (props: any) => {
     }
   };
 
+  function uuid() {
+    return "xxxxxx".replace(/[xy]/g, function(c) {
+      var r = (Math.random() * 16) | 0,
+        v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString();
+    });
+  }
+
+  function getUrlParameter(name: string) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+    var results = regex.exec(window.location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
   const startProcess = () => {
     api.camunda
       .start({
@@ -340,9 +359,17 @@ const CardOrder = (props: any) => {
           lastName: lastName,
           msisdn: formatPhoneNumber(),
           productCode: "0.300.017.1",
+          date: moment().format("DD-MM-YYYY"),
+          requestID: uuid(),
+          utm_source: getUrlParameter("utm_source"),
+          utm_medium: getUrlParameter("utm_medium"),
+          utm_campaign: getUrlParameter("utm_campaign"),
+          utm_term: getUrlParameter("utm_term"),
+          utm_content: getUrlParameter("utm_content"),
         },
       })
       .then((res: any) => {
+        props.scrollToOrder(false);
         if (res && res.variables) {
           setResStatus(res.variables.status);
         }
@@ -351,6 +378,7 @@ const CardOrder = (props: any) => {
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -373,11 +401,13 @@ const CardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         localStorage.removeItem("userContext");
         setStep(1);
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -389,11 +419,13 @@ const CardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         setTimer(90);
         setCode("");
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -402,6 +434,10 @@ const CardOrder = (props: any) => {
 
   const onSubmitOtp = () => {
     setLoading(true);
+    ReactGA.event({
+      category: "Kartakarta_final_virtcard_OTP",
+      action: "Success_final_virtcard_OTP",
+    });
     api.authOtp
       .confirmOtp({
         iin: iin,
@@ -409,10 +445,12 @@ const CardOrder = (props: any) => {
         otp: code,
       })
       .then((userContext) => {
+        props.scrollToOrder(false);
         localStorage.setItem("userContext", JSON.stringify(userContext));
         startProcess();
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);

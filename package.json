@@ -1,5 +1,5 @@
 {
-  "homepage": "http://shontykov.github.io/cardcard",
+  "homepage": "http://abkeyev.github.io/kartakarta",
   "name": "kartakarta",
   "version": "0.1.0",
   "private": true,
@@ -21,7 +21,7 @@
     "i18next": "^19.4.3",
     "i18next-browser-languagedetector": "^4.1.1",
     "i18next-xhr-backend": "^3.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.27.0",
     "prettier": "^1.19.1",
     "react": "^16.13.1",
     "react-block-ui": "^1.3.3",
