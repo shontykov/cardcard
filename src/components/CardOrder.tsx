@@ -18,7 +18,7 @@ import MaskedInput from "react-maskedinput";
 import ym from "react-yandex-metrika";
 import { useTranslation } from "react-i18next";
 import BlockUi from "react-block-ui";
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, MenuItem } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import "react-block-ui/style.css";
 import moment from "moment";
@@ -303,6 +303,51 @@ const CardOrder = (props: any) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  const [city, setCity] = React.useState("");
+  const cities = [
+    "Актау",
+    "Жанаозен",
+    "Актобе",
+    "Алматы",
+    "Атырау",
+    "Кульсары",
+    "Жезказган",
+    "Сатпаев",
+    "Караганда",
+    "Темиртау",
+    "Балхаш",
+    "Кокшетау",
+    "Степногорск",
+    "Костанай",
+    "Рудный",
+    "Затобольск",
+    "Кызылорда",
+    "Шиели",
+    "Нур-Султан",
+    "Павлодар",
+    "Экибастуз",
+    "Петропавловск",
+    "Семей",
+    "Шемонаиха",
+    "Аягоз",
+    "Талдыкорган",
+    "Отеген батыр",
+    "Капшагай",
+    "Талгар",
+    "Каскелен",
+    "Жаркент",
+    "Тараз",
+    "Шу",
+    "Уральск",
+    "Аксай",
+    "Усть-Каменогорск",
+    "Зайсан",
+    "Алтай",
+    "Риддер",
+    "Шымкент",
+    "Сарыагаш",
+    "Аксу",
+  ];
 
   React.useEffect(() => {
     let timeOut = setInterval(() => {
@@ -319,6 +364,7 @@ const CardOrder = (props: any) => {
         firstName.length > 1 &&
         lastName.length > 1 &&
         iin.length === 12 &&
+        city.length > 1 &&
         phoneNumber.replace("_", "").length === 16 &&
         agree
       );
@@ -358,6 +404,7 @@ const CardOrder = (props: any) => {
           middleName: middleName,
           lastName: lastName,
           msisdn: formatPhoneNumber(),
+          city: city,
           productCode: "0.300.017.1",
           date: moment().format("DD-MM-YYYY"),
           requestID: uuid(),
@@ -607,6 +654,31 @@ const CardOrder = (props: any) => {
                     inputComponent: TextMaskCustom as any,
                   }}
                 />
+                <TextField
+                  fullWidth={true}
+                  label={t("block_6.city") + "*"}
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={(e: any) => setCity(e.target.value)}
+                  variant="outlined"
+                  margin="normal"
+                  select
+                >
+                  {cities.map((c: string) => {
+                    return (
+                      c !== null && (
+                        <MenuItem
+                          className={classes.cityTitle}
+                          key={c}
+                          value={c}
+                        >
+                          {c}
+                        </MenuItem>
+                      )
+                    );
+                  })}
+                </TextField>
                 <FormControlLabel
                   className={classes.formControlCheckBox}
                   control={
