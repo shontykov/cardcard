@@ -395,6 +395,7 @@ const OldCardOrder = (props: any) => {
 
         formData.append("TELEPHONE", phoneNumber);
         formData.append("NAME", fio);
+        formData.append("BRANCH", city);
         formData.append("SYSTEM_TITLE", "#картакарта");
         formData.append("SYSTEM_POST_EVENT", "NEW_USER");
         formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
