@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bannerMain: {
         flexWrap: "nowrap",
         overflowX: "auto",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         width: "100%",
       },
       modalClose: {
@@ -210,7 +210,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       bannerMain: {
         overflowX: "auto",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         flexWrap: "nowrap",
       },
       modalClose: {
@@ -616,6 +616,7 @@ const Banner = () => {
             <Grid className={classes.modalMain}>
               <Grid className={classes.modalTitle}>
                 <h3 style={{ marginBottom: 10 }}>{t("banners.text_0")}</h3>
+                <p>{t("banners.text_01")}</p>
                 <p>{t("banners.text_1")}</p>
                 <p>
                   {t("banners.text_2")}
@@ -623,12 +624,7 @@ const Banner = () => {
                 <p>
                   {t("banners.text_3")}
                 </p>
-                <p style={{ textDecoration: "underline" }}>
-                  {t("banners.text_6")}
-                </p>
-                <a href="https://bit.ly/2Z58xat" style={{ marginBottom: 20, display: 'block' }}>{t("banners.text_94")}</a>
-                <p>{t("banners.text_7")}</p>
-                <p>{t("banners.text_8")}</p>
+                <p>{t("banners.text_4")}</p>
               </Grid>
             </Grid>
           </Grid>
