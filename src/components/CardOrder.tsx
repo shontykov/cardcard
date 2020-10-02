@@ -393,6 +393,34 @@ const CardOrder = (props: any) => {
   }
 
   const startProcess = () => {
+    const formData = new FormData();
+
+    formData.append("TELEPHONE", phoneNumber);
+    formData.append("NAME", `${firstName} ${lastName}`);
+    formData.append("BRANCH", city);
+    formData.append("IIN", iin);
+    formData.append("SYSTEM_TITLE", "#kartakarta");
+    formData.append("SYSTEM_POST_EVENT", "NEW_USER");
+    formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
+    formData.append("SYSTEM_IBLOCK_ID", "172");
+    formData.append("SYSTEM_NAME_ELEMENT", "NAME");
+    formData.append("SYSTEM_STATUS", "2877182");
+    formData.append("SYSTEM_LID", "S1");
+    formData.append("BCC_KEY", "1v5df35v");
+    formData.append("utm_source", getUrlParameter("utm_source"));
+    formData.append("utm_medium", getUrlParameter("utm_medium"));
+    formData.append("utm_campaign", getUrlParameter("utm_campaign"));
+    formData.append("utm_term", getUrlParameter("utm_term"));
+    formData.append("utm_content", getUrlParameter("utm_content"));
+
+    const response = fetch(
+      `https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
     api.camunda
       .start({
         env: {
