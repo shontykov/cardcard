@@ -82,13 +82,13 @@ function App() {
       <CalculatorCashback scrollToOrder={scrollToOrderRef} />
       <OldCardOrder
         refProp={orderRef}
+        scrollToOrder={scrollToOrderRef}
         snackUp={(message: string) => snackUp(message)}
-        scrollToOrder={scrollToOldOrderRef}
       />
       <HowToGetCard />
       <CardOrder
-        refProp={oldOrderRef}
-        scrollToOrder={scrollToOrderRef}
+        refProps={oldOrderRef}
+        scrollToOrder={scrollToOldOrderRef}
         snackUp={(message: string) => snackUp(message)}
       />
       <MobileBanking />
