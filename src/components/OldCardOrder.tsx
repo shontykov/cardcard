@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import BlockUi from "react-block-ui";
 import { Snackbar, MenuItem } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -179,15 +180,6 @@ const TextMaskCustom = (props: TextMaskCustomProps) => {
   );
 };
 
-function getUrlParameter(name: string) {
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-  var results = regex.exec(window.location.search);
-  return results === null
-    ? ""
-    : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
 const OldCardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
   const [step, setStep] = React.useState(0);
@@ -284,11 +276,13 @@ const OldCardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         localStorage.removeItem("userContext");
         setStep(1);
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -300,11 +294,13 @@ const OldCardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         setTimer(90);
         setCode("");
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -313,21 +309,44 @@ const OldCardOrder = (props: any) => {
 
   const onSubmitOtp = () => {
     setLoading(true);
+    ReactGA.event({
+      category: "Kartakarta_finalfeedback",
+      action: "Success_finalfeedback",
+    });
     api.authOtp
       .confirmOtp({
         phone: formatPhoneNumber(),
         otp: code,
       })
       .then((userContext) => {
+        props.scrollToOrder(false);
         localStorage.setItem("userContext", JSON.stringify(userContext));
         sendForm();
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
       });
   };
+
+  function uuid() {
+    return "xxxxxx".replace(/[xy]/g, function(c) {
+      var r = (Math.random() * 16) | 0,
+        v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString();
+    });
+  }
+
+  function getUrlParameter(name: string) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+    var results = regex.exec(window.location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
 
   const sendForm = () => {
     ReactGA.event({
@@ -376,6 +395,7 @@ const OldCardOrder = (props: any) => {
 
         formData.append("TELEPHONE", phoneNumber);
         formData.append("NAME", fio);
+        formData.append("BRANCH", city);
         formData.append("SYSTEM_TITLE", "#картакарта");
         formData.append("SYSTEM_POST_EVENT", "NEW_USER");
         formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
@@ -398,13 +418,22 @@ const OldCardOrder = (props: any) => {
           }
         );
       }
+
       api.camunda
         .callback({
           fio: fio,
           phone: formatPhoneNumber(),
           city: city,
+          date: moment().format("DD-MM-YYYY"),
+          requestID: uuid(),
+          utm_source: getUrlParameter("utm_source"),
+          utm_medium: getUrlParameter("utm_medium"),
+          utm_campaign: getUrlParameter("utm_campaign"),
+          utm_term: getUrlParameter("utm_term"),
+          utm_content: getUrlParameter("utm_content"),
         })
         .then((r: any) => {
+          props.scrollToOrder(false);
           setStep(0);
           setFio("");
           setCity("");
@@ -416,6 +445,7 @@ const OldCardOrder = (props: any) => {
           setOpenError(false);
         })
         .catch((e: any) => {
+          props.scrollToOrder(false);
           console.error(e);
           setStep(0);
           setFio("");

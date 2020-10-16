@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 10,
         color: "#5B5B5B",
         marginTop: 10,
+        "& > a": {
+          color: "#3F0259",
+        },
       },
       noteDetailButton: {
         textTransform: "none",
@@ -249,6 +252,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 14,
         color: "#5B5B5B",
         marginTop: 10,
+        "& > a": {
+          color: "#3F0259",
+        },
       },
       noteDetailButton: {
         textTransform: "none",
@@ -664,7 +670,7 @@ const Installment = (props: any) => {
                     {t("block_3.collapseShowSubtitle_3_tab_1")}
                   </Typography>
                   <Typography className={classes.noteDetail}>
-                    {t("block_3.collapseShowSubtitle_4_tab_1")}
+                    <span>{t("block_3.collapseShowSubtitle_4_tab_1")}</span>
                   </Typography>
                   <Typography className={classes.noteDetail}>
                     <Button

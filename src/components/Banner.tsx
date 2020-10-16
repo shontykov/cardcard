@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bannerMain: {
         flexWrap: "nowrap",
         overflowX: "auto",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         width: "100%",
       },
       modalClose: {
@@ -210,7 +210,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       bannerMain: {
         overflowX: "auto",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         flexWrap: "nowrap",
       },
       modalClose: {
@@ -395,13 +395,13 @@ const Banner = () => {
       <Grid container className={classes.bannerMain}>
         <Grid className={classes.fixedRoot}>
           <img
-            src="bannerMain-40.png"
+            src={t("banners.banner-1")}
             onClick={() => {
               setOpen3(true);
             }}
           />
         </Grid>
-        <Grid className={classes.fixedRoot}>
+        {/* <Grid className={classes.fixedRoot}>
           <img
             src={t("banners_4.img")}
             onClick={() => {
@@ -410,14 +410,14 @@ const Banner = () => {
           />
         </Grid>
 
-        <Grid className={classes.fixedRoot}>
+       <Grid className={classes.fixedRoot}>
           <img
             src={t("banners_3.img")}
             onClick={() => {
               setOpen6(true);
             }}
           />
-        </Grid>
+        </Grid> 
 
         <Grid className={classes.fixedRoot}>
           <img
@@ -426,7 +426,7 @@ const Banner = () => {
               setOpen5(true);
             }}
           />
-        </Grid>
+        </Grid>*/}
 
         <Grid className={classes.fixedRoot}>
           <img
@@ -446,14 +446,14 @@ const Banner = () => {
           />
         </Grid>
 
-        <Grid className={classes.fixedRoot}>
+        {/* <Grid className={classes.fixedRoot}>
           <img
             src="bannerMain-22.svg"
             onClick={() => {
               setOpen(true);
             }}
           />
-        </Grid>
+        </Grid> */}
 
 
 
@@ -616,7 +616,7 @@ const Banner = () => {
             <Grid className={classes.modalMain}>
               <Grid className={classes.modalTitle}>
                 <h3 style={{ marginBottom: 10 }}>{t("banners.text_0")}</h3>
-                <h3>{t("banners.text_01")}</h3>
+                <p>{t("banners.text_01")}</p>
                 <p>{t("banners.text_1")}</p>
                 <p>
                   {t("banners.text_2")}
@@ -624,17 +624,7 @@ const Banner = () => {
                 <p>
                   {t("banners.text_3")}
                 </p>
-                <p style={{ textDecoration: "underline" }}>
-                  {t("banners.text_6")}
-                </p>
-                <p>{t("banners.text_7")}</p>
-                <p>{t("banners.text_8")}</p>
-                <p>{t("banners.text_80")}</p>
-
-                <p>{t("banners.text_91")}</p>
-                <p>{t("banners.text_92")}</p>
-                <p>{t("banners.text_93")}</p>
-                <a href="https://vol.pillikan.kz/u/NzcwMTE2OTIxODk=">{t("banners.text_94")}</a>
+                <p>{t("banners.text_4")}</p>
               </Grid>
             </Grid>
           </Grid>
@@ -782,7 +772,7 @@ const Banner = () => {
           ></div>
         </Grid>
 
-        <Grid className={`${classes.fixedModal} ${open6 ? classes.open : ""}`}>
+        {/* <Grid className={`${classes.fixedModal} ${open6 ? classes.open : ""}`}>
           <Grid className={classes.modalClose}>
             <IconButton
               className={classes.fixedBtnModal}
@@ -807,7 +797,7 @@ const Banner = () => {
             className={classes.drpBack}
             onClick={() => setOpen6(false)}
           ></div>
-        </Grid>
+        </Grid> */}
 
         <Grid className={`${classes.fixedModal} ${open7 ? classes.open : ""}`}>
           <Grid className={classes.modalClose}>

@@ -4,7 +4,7 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  useTheme
+  useTheme,
 } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
@@ -23,37 +23,37 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     [theme.breakpoints.down("sm")]: {
       mainRoot: {
-        backgroundColor: "white"
+        backgroundColor: "white",
       },
       root: {
-        padding: paddingDownSm
+        padding: paddingDownSm,
       },
       title: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "26px",
-        marginBottom: 20
+        marginBottom: 20,
       },
       subtitle: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "18px",
         color: "#5B5B5B",
-        marginBottom: 10
+        marginBottom: 10,
       },
       subtitleDesc: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "14px",
         color: "#5B5B5B",
-        marginBottom: 10
+        marginBottom: 10,
       },
       buttonPartner: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: 10,
         color: "#5B5B5B",
-        marginTop: 10
+        marginTop: 10,
       },
       noteButtonPartner: {
         textTransform: "none",
@@ -62,53 +62,53 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        borderColor: "#3F0259"
-      }
+        borderColor: "#3F0259",
+      },
     },
     [theme.breakpoints.between("sm", "xl")]: {
       mainRoot: {
-        padding: "20px 0"
+        padding: "20px 0",
       },
       ...rootSmXl,
       mainBg: {
         backgroundImage: "url(partners_bg.svg)",
         backgroundSize: "contain",
         backgroundPosition: "right",
-        backgroundRepeat: "no-repeat"
+        backgroundRepeat: "no-repeat",
       },
       myFont: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: 32,
         textAlign: "center",
-        color: "white"
+        color: "white",
       },
       title: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "40px",
-        marginBottom: 20
+        marginBottom: 20,
       },
       subtitle: {
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "20px",
         color: "#5B5B5B",
-        marginBottom: 10
+        marginBottom: 10,
       },
       subtitleDesc: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "18px",
         color: "#5B5B5B",
-        marginBottom: 10
+        marginBottom: 10,
       },
       buttonPartner: {
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: 10,
         color: "#5B5B5B",
-        marginTop: 10
+        marginTop: 10,
       },
       noteButtonPartner: {
         textTransform: "none",
@@ -117,9 +117,9 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        borderColor: "#3F0259"
-      }
-    }
+        borderColor: "#3F0259",
+      },
+    },
   })
 );
 interface TextMaskCustomProps {
@@ -144,26 +144,6 @@ const Partners = (props: any) => {
   const [fio, setFio] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    ReactGA.event({
-      category: "BccCard_kartakarta_Apply_Success",
-      action: "kartakarta_Apply_Success"
-    });
-
-    if (phoneNumber && setPhoneNumber) {
-      api.card
-        .order({ fio, phoneNumber })
-        .then(m => {
-          setFio("");
-          setPhoneNumber("");
-          props.send();
-        })
-        .catch(e => console.warn(e));
-    }
-    ym("reachGoal", "send_mess");
-  };
 
   const classes = useStyles({});
   const { t } = useTranslation();

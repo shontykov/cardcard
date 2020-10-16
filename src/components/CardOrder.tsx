@@ -18,9 +18,11 @@ import MaskedInput from "react-maskedinput";
 import ym from "react-yandex-metrika";
 import { useTranslation } from "react-i18next";
 import BlockUi from "react-block-ui";
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, MenuItem } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import "react-block-ui/style.css";
+import moment from "moment";
+import * as Scroll from "react-scroll";
 
 const webConfigEnv = (window as any).env;
 
@@ -301,6 +303,51 @@ const CardOrder = (props: any) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  const [city, setCity] = React.useState("");
+  const cities = [
+    "Актау",
+    "Жанаозен",
+    "Актобе",
+    "Алматы",
+    "Атырау",
+    "Кульсары",
+    "Жезказган",
+    "Сатпаев",
+    "Караганда",
+    "Темиртау",
+    "Балхаш",
+    "Кокшетау",
+    "Степногорск",
+    "Костанай",
+    "Рудный",
+    "Затобольск",
+    "Кызылорда",
+    "Шиели",
+    "Нур-Султан",
+    "Павлодар",
+    "Экибастуз",
+    "Петропавловск",
+    "Семей",
+    "Шемонаиха",
+    "Аягоз",
+    "Талдыкорган",
+    "Отеген батыр",
+    "Капшагай",
+    "Талгар",
+    "Каскелен",
+    "Жаркент",
+    "Тараз",
+    "Шу",
+    "Уральск",
+    "Аксай",
+    "Усть-Каменогорск",
+    "Зайсан",
+    "Алтай",
+    "Риддер",
+    "Шымкент",
+    "Сарыагаш",
+    "Аксу",
+  ];
 
   React.useEffect(() => {
     let timeOut = setInterval(() => {
@@ -317,6 +364,7 @@ const CardOrder = (props: any) => {
         firstName.length > 1 &&
         lastName.length > 1 &&
         iin.length === 12 &&
+        city.length > 1 &&
         phoneNumber.replace("_", "").length === 16 &&
         agree
       );
@@ -327,7 +375,52 @@ const CardOrder = (props: any) => {
     }
   };
 
+  function uuid() {
+    return "xxxxxx".replace(/[xy]/g, function(c) {
+      var r = (Math.random() * 16) | 0,
+        v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString();
+    });
+  }
+
+  function getUrlParameter(name: string) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+    var results = regex.exec(window.location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
   const startProcess = () => {
+    const formData = new FormData();
+
+    formData.append("TELEPHONE", phoneNumber);
+    formData.append("NAME", `${firstName} ${lastName}`);
+    formData.append("BRANCH", city);
+    formData.append("IIN", iin);
+    formData.append("SYSTEM_TITLE", "#kartakarta");
+    formData.append("SYSTEM_POST_EVENT", "NEW_USER");
+    formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
+    formData.append("SYSTEM_IBLOCK_ID", "172");
+    formData.append("SYSTEM_NAME_ELEMENT", "NAME");
+    formData.append("SYSTEM_STATUS", "2877182");
+    formData.append("SYSTEM_LID", "S1");
+    formData.append("BCC_KEY", "1v5df35v");
+    formData.append("utm_source", getUrlParameter("utm_source"));
+    formData.append("utm_medium", getUrlParameter("utm_medium"));
+    formData.append("utm_campaign", getUrlParameter("utm_campaign"));
+    formData.append("utm_term", getUrlParameter("utm_term"));
+    formData.append("utm_content", getUrlParameter("utm_content"));
+
+    const response = fetch(
+      `https://www.bcc.kz/local/tmpl/ajax/iblock_save.php`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
     api.camunda
       .start({
         env: {
@@ -339,10 +432,19 @@ const CardOrder = (props: any) => {
           middleName: middleName,
           lastName: lastName,
           msisdn: formatPhoneNumber(),
+          city: city,
           productCode: "0.300.017.1",
+          date: moment().format("DD-MM-YYYY"),
+          requestID: uuid(),
+          utm_source: getUrlParameter("utm_source"),
+          utm_medium: getUrlParameter("utm_medium"),
+          utm_campaign: getUrlParameter("utm_campaign"),
+          utm_term: getUrlParameter("utm_term"),
+          utm_content: getUrlParameter("utm_content"),
         },
       })
       .then((res: any) => {
+        props.scrollToOrder(false);
         if (res && res.variables) {
           setResStatus(res.variables.status);
         }
@@ -351,6 +453,7 @@ const CardOrder = (props: any) => {
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -373,11 +476,13 @@ const CardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         localStorage.removeItem("userContext");
         setStep(1);
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -389,11 +494,13 @@ const CardOrder = (props: any) => {
     api.authOtp
       .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
+        props.scrollToOrder(false);
         setTimer(90);
         setCode("");
         setLoading(false);
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -402,6 +509,10 @@ const CardOrder = (props: any) => {
 
   const onSubmitOtp = () => {
     setLoading(true);
+    ReactGA.event({
+      category: "Kartakarta_final_virtcard_OTP",
+      action: "Success_final_virtcard_OTP",
+    });
     api.authOtp
       .confirmOtp({
         iin: iin,
@@ -409,10 +520,12 @@ const CardOrder = (props: any) => {
         otp: code,
       })
       .then((userContext) => {
+        props.scrollToOrder(false);
         localStorage.setItem("userContext", JSON.stringify(userContext));
         startProcess();
       })
       .catch((e: any) => {
+        props.scrollToOrder(false);
         console.error(e);
         setOpenError(true);
         setLoading(false);
@@ -569,6 +682,31 @@ const CardOrder = (props: any) => {
                     inputComponent: TextMaskCustom as any,
                   }}
                 />
+                <TextField
+                  fullWidth={true}
+                  label={t("block_6.city") + "*"}
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={(e: any) => setCity(e.target.value)}
+                  variant="outlined"
+                  margin="normal"
+                  select
+                >
+                  {cities.map((c: string) => {
+                    return (
+                      c !== null && (
+                        <MenuItem
+                          className={classes.cityTitle}
+                          key={c}
+                          value={c}
+                        >
+                          {c}
+                        </MenuItem>
+                      )
+                    );
+                  })}
+                </TextField>
                 <FormControlLabel
                   className={classes.formControlCheckBox}
                   control={

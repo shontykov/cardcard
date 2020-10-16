@@ -24,11 +24,8 @@ import * as Scroll from "react-scroll";
 function App() {
   const { t, i18n } = useTranslation();
   const orderRef: any = React.useRef(null);
+  const oldOrderRef: any = React.useRef(null);
   const [lang, setLang] = React.useState(i18n.language ? i18n.language : "ru");
-
-  // useEffect(() => {
-  //   i18n.changeLanguage('ru');
-  // })
 
   const handleLangChange = (lang: string) => {
     setLang(lang);
@@ -38,6 +35,14 @@ function App() {
   const scrollToOrderRef = (flag: boolean) => {
     Scroll.animateScroll.scrollTo(
       flag ? orderRef.current.offsetTop - 120 : orderRef.current.offsetTop - 80
+    );
+  };
+
+  const scrollToOldOrderRef = (flag: boolean) => {
+    Scroll.animateScroll.scrollTo(
+      flag
+        ? oldOrderRef.current.offsetTop - 120
+        : oldOrderRef.current.offsetTop - 80
     );
   };
 
@@ -77,10 +82,15 @@ function App() {
       <CalculatorCashback scrollToOrder={scrollToOrderRef} />
       <CardOrder
         refProp={orderRef}
+        scrollToOrder={scrollToOrderRef}
         snackUp={(message: string) => snackUp(message)}
       />
       <HowToGetCard />
-      <OldCardOrder snackUp={(message: string) => snackUp(message)} />
+      <OldCardOrder
+        refProp={oldOrderRef}
+        snackUp={(message: string) => snackUp(message)}
+        scrollToOrder={scrollToOldOrderRef}
+      />
       <MobileBanking />
       <AdditionalInfo />
       <HelpYou />
