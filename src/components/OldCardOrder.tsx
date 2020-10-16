@@ -184,6 +184,7 @@ const OldCardOrder = (props: any) => {
   const [fio, setFio] = React.useState("");
   const [step, setStep] = React.useState(0);
   const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [iin, setIin] = React.useState("");
   const [agree, setAgree] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState(0);
   const [code, setCode] = React.useState("");
@@ -245,10 +246,12 @@ const OldCardOrder = (props: any) => {
     return () => clearInterval(timeOut);
   }, [timer]);
 
+
   const isValid = () => {
     if (step === 0) {
       return (
         fio.length > 1 &&
+        iin.length === 12 &&
         phoneNumber.replace("_", "").length === 16 &&
         city.length > 1 &&
         agree
@@ -274,7 +277,7 @@ const OldCardOrder = (props: any) => {
     setLoading(true);
     setTimer(90);
     api.authOtp
-      .sendOtp({ phone: formatPhoneNumber() })
+      .sendOtp({ iin: iin, phone: formatPhoneNumber() })
       .then(() => {
         props.scrollToOrder(false);
         localStorage.removeItem("userContext");
@@ -317,6 +320,7 @@ const OldCardOrder = (props: any) => {
       .confirmOtp({
         phone: formatPhoneNumber(),
         otp: code,
+        iin: iin
       })
       .then((userContext) => {
         props.scrollToOrder(false);
@@ -332,7 +336,7 @@ const OldCardOrder = (props: any) => {
   };
 
   function uuid() {
-    return "xxxxxx".replace(/[xy]/g, function(c) {
+    return "xxxxxx".replace(/[xy]/g, function (c) {
       var r = (Math.random() * 16) | 0,
         v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString();
@@ -396,6 +400,7 @@ const OldCardOrder = (props: any) => {
         formData.append("TELEPHONE", phoneNumber);
         formData.append("NAME", fio);
         formData.append("BRANCH", city);
+        formData.append("IIN", iin);
         formData.append("SYSTEM_TITLE", "#картакарта");
         formData.append("SYSTEM_POST_EVENT", "NEW_USER");
         formData.append("SYSTEM_LINK", "https://www.bcc.kz/kartakarta");
@@ -423,6 +428,7 @@ const OldCardOrder = (props: any) => {
         .callback({
           fio: fio,
           phone: formatPhoneNumber(),
+          iin: iin,
           city: city,
           date: moment().format("DD-MM-YYYY"),
           requestID: uuid(),
@@ -489,8 +495,8 @@ const OldCardOrder = (props: any) => {
     >
       <Paper elevation={0} className={classes.paper}>
         <Typography className={classes.box}>
-          {t("block_6.title_main1")} <br />
-          {t("block_6.title_main_12")}
+          {t("block_6.title_main")} <br />
+          {t("block_6.title_main_2")}
         </Typography>
         <Snackbar
           anchorOrigin={{
@@ -535,6 +541,19 @@ const OldCardOrder = (props: any) => {
                   InputProps={{
                     inputComponent: TextMaskCustom as any,
                   }}
+                />
+                <TextField
+                  size={isXS ? "small" : "medium"}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="iin"
+                  label={t("block_6.iin_main")}
+                  name="iin"
+                  value={iin}
+                  onChange={(e: any) =>
+                    setIin(e.target.value.replace(/\D/g, "").substr(0, 12))
+                  }
                 />
                 <TextField
                   fullWidth={true}
@@ -662,20 +681,20 @@ const OldCardOrder = (props: any) => {
                       </Typography>
                     </Grid>
                   ) : (
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                      <Typography
-                        className={classes.linkReSendSms}
-                        onClick={() => onReSend()}
-                      >
-                        {t("block_6.resend_sms")}
-                      </Typography>
-                    </Grid>
-                  )}
+                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                        <Typography
+                          className={classes.linkReSendSms}
+                          onClick={() => onReSend()}
+                        >
+                          {t("block_6.resend_sms")}
+                        </Typography>
+                      </Grid>
+                    )}
                 </Grid>
               </>
             ) : (
-              <></>
-            )}
+                  <></>
+                )}
           </BlockUi>
         </form>
       </Paper>

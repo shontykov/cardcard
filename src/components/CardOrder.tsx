@@ -376,7 +376,7 @@ const CardOrder = (props: any) => {
   };
 
   function uuid() {
-    return "xxxxxx".replace(/[xy]/g, function(c) {
+    return "xxxxxx".replace(/[xy]/g, function (c) {
       var r = (Math.random() * 16) | 0,
         v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString();
@@ -573,14 +573,14 @@ const CardOrder = (props: any) => {
       <Paper elevation={0} className={classes.paper}>
         <Typography className={classes.box}>
           {t("block_6.title_main")} <br />
-          {t("block_6.title_main_2")}
+          {t("block_6.title_main_12")}
         </Typography>
         <Typography className={classes.hintText}>
           {step === 0
             ? t("block_6.hint_text1")
             : step === 1
-            ? t("block_6.hint_text2")
-            : ""}
+              ? t("block_6.hint_text2")
+              : ""}
         </Typography>
         <Snackbar
           anchorOrigin={{
@@ -808,15 +808,15 @@ const CardOrder = (props: any) => {
                       </Typography>
                     </Grid>
                   ) : (
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                      <Typography
-                        className={classes.linkReSendSms}
-                        onClick={() => onReSend()}
-                      >
-                        {t("block_6.resend_sms")}
-                      </Typography>
-                    </Grid>
-                  )}
+                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                        <Typography
+                          className={classes.linkReSendSms}
+                          onClick={() => onReSend()}
+                        >
+                          {t("block_6.resend_sms")}
+                        </Typography>
+                      </Grid>
+                    )}
                 </Grid>
               </>
             ) : resStatus === 0 ? (
@@ -871,8 +871,8 @@ const CardOrder = (props: any) => {
                 </div>
               </div>
             ) : (
-              ""
-            )}
+                          ""
+                        )}
           </BlockUi>
         </div>
       </Paper>

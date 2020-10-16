@@ -80,16 +80,16 @@ function App() {
       <GoodAnyTimeWhere scrollToOrder={scrollToOrderRef} />
       <Partners />
       <CalculatorCashback scrollToOrder={scrollToOrderRef} />
-      <CardOrder
-        refProp={orderRef}
-        scrollToOrder={scrollToOrderRef}
-        snackUp={(message: string) => snackUp(message)}
-      />
-      <HowToGetCard />
       <OldCardOrder
-        refProp={oldOrderRef}
+        refProp={orderRef}
         snackUp={(message: string) => snackUp(message)}
         scrollToOrder={scrollToOldOrderRef}
+      />
+      <HowToGetCard />
+      <CardOrder
+        refProp={oldOrderRef}
+        scrollToOrder={scrollToOrderRef}
+        snackUp={(message: string) => snackUp(message)}
       />
       <MobileBanking />
       <AdditionalInfo />
