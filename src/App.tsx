@@ -68,12 +68,12 @@ function App() {
       <Header
         lang={lang}
         changeLang={handleLangChange}
-        scrollToOrder={scrollToOrderRef}
+        scrollToOrder={scrollToOldOrderRef}
       />
       <FixedHeader
         lang={lang}
         changeLang={handleLangChange}
-        scrollToOrder={scrollToOrderRef}
+        scrollToOrder={scrollToOldOrderRef}
       />
       <Banner />
       <BestCard />
@@ -81,14 +81,14 @@ function App() {
       <Partners />
       <CalculatorCashback scrollToOrder={scrollToOrderRef} />
       <OldCardOrder
-        refProp={orderRef}
-        scrollToOrder={scrollToOrderRef}
+        refProp={oldOrderRef}
         snackUp={(message: string) => snackUp(message)}
+        scrollToOrder={scrollToOldOrderRef}
       />
       <HowToGetCard />
       <CardOrder
-        refProps={oldOrderRef}
-        scrollToOrder={scrollToOldOrderRef}
+        refProp={orderRef}
+        scrollToOrder={scrollToOrderRef}
         snackUp={(message: string) => snackUp(message)}
       />
       <MobileBanking />

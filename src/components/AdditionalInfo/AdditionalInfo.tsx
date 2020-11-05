@@ -120,12 +120,12 @@ const Tarifs = () => {
                       &nbsp; {t('block_8.title_11_tab_2')}
                     </a>
                   </Typography>
-                  <Typography>
+                  {/* <Typography>
                     <a href="tarifs_en.pdf" className={classes.a}>
                       <img src="pdf.svg" alt="pdf" />
                       &nbsp; {t('block_8.title_12_tab_2')}
                     </a>
-                  </Typography>
+                  </Typography> */}
                 </div>
               }
             </TableCell>

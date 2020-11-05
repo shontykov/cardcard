@@ -395,22 +395,22 @@ const Banner = () => {
       <Grid container className={classes.bannerMain}>
         <Grid className={classes.fixedRoot}>
           <img
-            src={t("banners.banner-1")}
-            onClick={() => {
-              setOpen3(true);
-            }}
-          />
-        </Grid>
-        {/* <Grid className={classes.fixedRoot}>
-          <img
             src={t("banners_4.img")}
             onClick={() => {
               setOpen7(true);
             }}
           />
         </Grid>
+        <Grid className={classes.fixedRoot}>
+          <img
+            src={t("banners.banner-1")}
+            onClick={() => {
+              setOpen3(true);
+            }}
+          />
+        </Grid>
 
-       <Grid className={classes.fixedRoot}>
+        {/*<Grid className={classes.fixedRoot}>
           <img
             src={t("banners_3.img")}
             onClick={() => {
@@ -811,12 +811,8 @@ const Banner = () => {
               <Grid className={classes.modalTitle}>
                 <h3 style={{ marginBottom: 10 }}>{t("banners_4.text_100")}</h3>
                 <p> {t("banners_4.text_0")} </p>
-                <p style={{ marginBottom: "10px" }}>{t("banners_4.text_01")}</p>
-                <p style={{ marginBottom: "10px" }}> {t("banners_4.text_20")} </p>
-                <p>{t("banners_4.text_2")}</p>
-                <p>{t("banners_4.text_30")}</p>
-                <p>{t("banners_4.text_3")}</p>
-                <h4>{t("banners_4.text_311")}</h4>
+                <p> {t("banners_4.text_1")} </p>
+                <p> {t("banners_4.text_2")} <a href="https://www.bcc.kz/blackfriday/">{t("banners_4.text_3")} </a></p>
               </Grid>
             </Grid>
           </Grid>
