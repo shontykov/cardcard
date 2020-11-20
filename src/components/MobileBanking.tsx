@@ -141,6 +141,14 @@ const MobileBanking = () => {
                     alt="google_play"
                   />
                 </Grid>
+                <Grid item>
+                  <img
+                    onClick={() => onClickGooglePlay()}
+                    className={classes.googlePlayAppStore}
+                    src="qr-code.svg"
+                    alt="qrcode"
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -149,7 +157,7 @@ const MobileBanking = () => {
           <Grid container justify="center">
             <img
               className={classes.img}
-              src="stars_mobile_banking.png"
+              src="stars_mobile_banking.svg"
               alt="star_mobile_banking"
             />
           </Grid>

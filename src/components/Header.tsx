@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     [theme.breakpoints.between("sm", "xl")]: {
       mainRoot: {
-        background: "url(header-main.svg) no-repeat center center fixed",
+        background: "url(header-main2.svg) no-repeat center center fixed",
         backgroundSize: "cover",
         height: 580,
       },
